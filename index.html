@@ -938,7 +938,7 @@ function sendToTelegram() {
       setTimeout(() => {
         window.location.href = tgWebUrl;
       }, 500);
-    }
+    
       message += `\n💳 Итого к оплате: ${total.toLocaleString()} ₽\n\nПодскажите, как оплатить и оформить доставку? ✨`;
 
       const telegramUrl = `https://t.me/kamillameneger?text=${encodeURIComponent(message)}`;
