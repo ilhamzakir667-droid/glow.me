@@ -52,6 +52,33 @@
       text-shadow: 0 0 12px #ff1493;
     }
 
+    .cart-trigger {
+      background: linear-gradient(135deg, #ff1493, #ff69b4);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .cart-trigger:hover {
+      transform: scale(1.05);
+    }
+
+    .cart-badge {
+      background: #fff;
+      color: #ff1493;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
     /* Главный Экран */
     .hero {
       height: 100vh;
@@ -255,7 +282,7 @@
       transform: scale(1.02);
     }
 
-    /* МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА СУМКИ */
+    /* МОДАЛЬНОЕ ОКНО ПРОСМОТРА */
     .modal {
       display: none;
       position: fixed;
@@ -297,11 +324,6 @@
       color: #fff;
       cursor: pointer;
       z-index: 10;
-      transition: color 0.3s;
-    }
-
-    .close-btn:hover {
-      color: #ff1493;
     }
 
     .modal-img-box {
@@ -347,18 +369,149 @@
       margin-bottom: 30px;
     }
 
+    /* БОКОВАЯ КОРЗИНА */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 100%;
+      max-width: 400px;
+      height: 100%;
+      background: #150210;
+      border-left: 1px solid #ff1493;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+      z-index: 2500;
+      transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      flex-direction: column;
+      padding: 25px;
+    }
+
+    .cart-drawer.open {
+      right: 0;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 20, 147, 0.2);
+    }
+
+    .cart-title {
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      border-radius: 14px;
+    }
+
+    .cart-item-img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      background: #0d0108;
+      border-radius: 8px;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .cart-item-price {
+      font-size: 14px;
+      color: #ff69b4;
+      font-weight: 800;
+    }
+
+    .qty-btn {
+      background: #ff1493;
+      border: none;
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .cart-footer {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 20, 147, 0.2);
+    }
+
+    .total-price {
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #0088cc, #00bfff);
+      color: #fff;
+      border: none;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .checkout-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .cart-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 2400;
+    }
+
+    .cart-overlay.active {
+      display: block;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
-    }
-
-    @media (max-width: 768px) {
-      .modal-content {
-        flex-direction: column;
-      }
-      .modal-img-box {
-        height: 250px;
-      }
     }
   </style>
 </head>
@@ -366,7 +519,9 @@
 
   <header>
     <a href="#" class="logo">glow<span>.me</span> ✨</a>
-    <div style="font-weight: 700; font-size: 13px; color: #ff85c0; letter-spacing: 1px;">BARBIE SELECTION</div>
+    <div class="cart-trigger" onclick="toggleCart()">
+      🛍️ Корзинка <span class="cart-badge" id="cartCount">0</span>
+    </div>
   </header>
 
   <section class="hero">
@@ -388,42 +543,42 @@
     <div class="grid">
       
       <!-- ТОВАР 1 -->
-      <div class="card" onclick="openModal('./bag1.PNG', 'Розовая сумка Barbie', '5 300 ₽', 'Фирменная розовая сумочка из эксклюзивной коллекции Barbie. Идеальное качество, премиальная фурнитура и неповторимый глянец.')">
+      <div class="card" onclick="openModal('./bag1.PNG', 'Розовая сумка Barbie', 5300, 'Фирменная розовая сумочка из эксклюзивной коллекции Barbie.')">
         <span class="zoom-hint">🔍 Нажми для просмотра</span>
         <div class="img-container">
           <img src="./bag1.PNG" class="product-img" alt="Розовая сумка Barbie">
         </div>
         <div class="product-title">Розовая сумка Barbie</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); alert('Товар добавлен!');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Розовая сумка Barbie', 5300, './bag1.PNG');">В корзиночку 🛍️</button>
       </div>
 
       <!-- ТОВАР 2 -->
-      <div class="card" onclick="openModal('./bag2.PNG', 'Голубая сумка Barbie', '5 300 ₽', 'Нежно-голубая модель для особенных образов. Стильный дизайн, компактный размер и фирменный стиль glow girls')">
+      <div class="card" onclick="openModal('./bag2.PNG', 'Голубая сумка Barbie', 5300, 'Нежно-голубая модель для особенных образов.')">
         <span class="zoom-hint">🔍 Нажми для просмотра</span>
         <div class="img-container">
           <img src="./bag2.PNG" class="product-img" alt="Голубая сумка Barbie">
         </div>
         <div class="product-title">Голубая сумка Barbie</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); alert('Товар добавлен!');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Голубая сумка Barbie', 5300, './bag2.PNG');">В корзиночку 🛍️</button>
       </div>
 
       <!-- ТОВАР 3 -->
-      <div class="card" onclick="openModal('./bag3.PNG', 'Черная сумка Barbie', '5 300 ₽', 'Классическая черная сумочка с яркими акцентами. Дерзкий Glam-стиль для вечерних выходов.')">
+      <div class="card" onclick="openModal('./bag3.PNG', 'Черная сумка Barbie', 5300, 'Классическая черная сумочка с яркими акцентами.')">
         <span class="zoom-hint">🔍 Нажми для просмотра</span>
         <div class="img-container">
           <img src="./bag3.PNG" class="product-img" alt="Черная сумка Barbie">
         </div>
         <div class="product-title">Черная сумка Barbie</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); alert('Товар добавлен!');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Черная сумка Barbie', 5300, './bag3.PNG');">В корзиночку 🛍️</button>
       </div>
 
     </div>
   </section>
 
-  <!-- ВСПЛЫВАЮЩЕЕ МОДАЛЬНОЕ ОКНО -->
+  <!-- МОДАЛЬНОЕ ОКНО ПРОСМОТРА -->
   <div class="modal" id="productModal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -434,22 +589,138 @@
         <h2 class="modal-title" id="modalTitle">Название товара</h2>
         <div class="modal-price" id="modalPrice">0 ₽</div>
         <p class="modal-desc" id="modalDesc">Описание товара появится здесь.</p>
-        <button class="add-btn">Забрать в сумочку 🛍️</button>
+        <button class="add-btn" id="modalAddBtn">Забрать в сумочку 🛍️</button>
       </div>
     </div>
   </div>
 
+  <!-- ОВЕРЛЕЙ И БОКОВАЯ КОРЗИНА -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <div class="cart-title">Твоя Корзинка 🛍️</div>
+      <span class="close-btn" style="position:static;" onclick="toggleCart()">&times;</span>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+      <!-- Товары динамически строятся здесь -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="total-price">
+        <span>Итого:</span>
+        <span id="cartTotal">0 ₽</span>
+      </div>
+      <button class="checkout-btn" onclick="sendToTelegram()">Оформить в Telegram ✈️</button>
+    </div>
+  </div>
+
   <script>
+    let cart = [];
+
     function openModal(imgSrc, title, price, desc) {
       document.getElementById('modalImg').src = imgSrc;
       document.getElementById('modalTitle').innerText = title;
-      document.getElementById('modalPrice').innerText = price;
+      document.getElementById('modalPrice').innerText = price.toLocaleString() + ' ₽';
       document.getElementById('modalDesc').innerText = desc;
+      
+      document.getElementById('modalAddBtn').onclick = function() {
+        addToCart(title, price, imgSrc);
+        closeModal();
+      };
+
       document.getElementById('productModal').classList.add('active');
     }
 
     function closeModal() {
       document.getElementById('productModal').classList.remove('active');
+    }
+
+    function toggleCart() {
+      document.getElementById('cartDrawer').classList.toggle('open');
+      document.getElementById('cartOverlay').classList.toggle('active');
+    }
+
+    function addToCart(title, price, img) {
+      const existingItem = cart.find(item => item.title === title);
+      
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ title, price, img, quantity: 1 });
+      }
+
+      updateCartUI();
+      toggleCart();
+    }
+
+    function changeQty(title, delta) {
+      const item = cart.find(item => item.title === title);
+      if (item) {
+        item.quantity += delta;
+        if (item.quantity <= 0) {
+          cart = cart.filter(i => i.title !== title);
+        }
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const cartItemsContainer = document.getElementById('cartItems');
+      cartItemsContainer.innerHTML = '';
+
+      let total = 0;
+      let totalCount = 0;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<div style="text-align:center; color:#888; margin-top:40px;">Корзинка пока пуста 💖</div>';
+      }
+
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+        totalCount += item.quantity;
+
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML = `
+          <img src="${item.img}" class="cart-item-img">
+          <div class="cart-item-info">
+            <div class="cart-item-title">${item.title}</div>
+            <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} ₽</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button class="qty-btn" onclick="changeQty('${item.title}', -1)">-</button>
+            <span style="font-size:14px; font-weight:800;">${item.quantity}</span>
+            <button class="qty-btn" onclick="changeQty('${item.title}', 1)">+</button>
+          </div>
+        `;
+        cartItemsContainer.appendChild(itemEl);
+      });
+
+      document.getElementById('cartTotal').innerText = total.toLocaleString() + ' ₽';
+      document.getElementById('cartCount').innerText = totalCount;
+    }
+
+    function sendToTelegram() {
+      if (cart.length === 0) {
+        alert('Добавьте хотя бы один товар в корзинку!');
+        return;
+      }
+
+      let message = "👋 Привет! Хочу оформить заказ с сайта glow.me:\n\n🛍️ Товары:\n";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const sum = item.price * item.quantity;
+        total += sum;
+        message += `${index + 1}. ${item.title} (${item.quantity} шт.) — ${sum.toLocaleString()} ₽\n`;
+      });
+
+      message += `\n💳 Итого к оплате: ${total.toLocaleString()} ₽\n\nПодскажите, как оплатить и оформить доставку? ✨`;
+
+      const telegramUrl = `https://t.me/kamillameneger?text=${encodeURIComponent(message)}`;
+      window.open(telegramUrl, '_blank');
     }
   </script>
 
