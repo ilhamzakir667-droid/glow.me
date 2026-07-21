@@ -14,6 +14,10 @@
       font-family: 'Montserrat', sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth; /* Плавный скролл для эффекта путешествия */
+    }
+
     body {
       background: #0d0108;
       color: #ffffff;
@@ -35,7 +39,6 @@
       border-bottom: 1px solid rgba(255, 20, 147, 0.25);
     }
 
-    /* Логотип glow.me с эффектом сияния */
     .logo {
       font-size: 28px;
       font-weight: 900;
@@ -50,9 +53,9 @@
       text-shadow: 0 0 12px #ff1493, 0 0 25px #ff69b4;
     }
 
-    /* Героическая секция */
+    /* Главный экран (Hero) */
     .hero {
-      height: 85vh;
+      height: 100vh;
       background: radial-gradient(circle at center, #ff1493 0%, #3a0022 65%, #0d0108 100%);
       display: flex;
       flex-direction: column;
@@ -60,7 +63,7 @@
       align-items: center;
       text-align: center;
       padding: 0 20px;
-      margin-top: 60px;
+      position: relative;
     }
 
     .hero-badge {
@@ -97,7 +100,7 @@
     .hero-btn {
       background: #ffffff;
       color: #ff1493;
-      padding: 16px 36px;
+      padding: 18px 42px;
       border-radius: 30px;
       font-weight: 900;
       text-transform: uppercase;
@@ -105,14 +108,142 @@
       border: none;
       cursor: pointer;
       box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-decoration: none;
+      display: inline-block;
     }
 
     .hero-btn:hover {
       background: #ff1493;
       color: #ffffff;
-      box-shadow: 0 0 30px #ff1493;
-      transform: translateY(-3px);
+      box-shadow: 0 0 35px #ff1493;
+      transform: scale(1.08) translateY(-3px);
+    }
+
+    /* Начало Мира Шопинга (Каталог) */
+    .shopping-world {
+      min-height: 100vh;
+      padding: 100px 40px 60px;
+      background: linear-gradient(180deg, #0d0108 0%, #1f0215 50%, #0d0108 100%);
+      position: relative;
+    }
+
+    .world-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .world-tag {
+      color: #ff69b4;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .world-title {
+      font-size: 42px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .world-title span {
+      background: linear-gradient(45deg, #ff1493, #ff85c0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Интерактивные Категории-Порталы */
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 20, 147, 0.3);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 25px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .cat-btn.active, .cat-btn:hover {
+      background: #ff1493;
+      border-color: #ff1493;
+      box-shadow: 0 0 15px rgba(255, 20, 147, 0.6);
+    }
+
+    /* Сетка товаров */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 20px;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: #ff1493;
+      background: rgba(255, 20, 147, 0.08);
+      box-shadow: 0 15px 35px rgba(255, 20, 147, 0.25);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 18px;
+      margin-bottom: 15px;
+    }
+
+    .product-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: 900;
+      color: #ff69b4;
+      margin-bottom: 15px;
+    }
+
+    .add-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #ff1493, #ff69b4);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .add-btn:hover {
+      box-shadow: 0 0 20px #ff1493;
     }
   </style>
 </head>
@@ -123,11 +254,54 @@
     <div style="font-weight: 700; font-size: 14px; color: #ff85c0;">BARBIE SELECTION</div>
   </header>
 
+  <!-- НАЧАЛО СТРАНИЦЫ (HERO) -->
   <section class="hero">
     <div class="hero-badge">Official Barbie Vibe</div>
     <h1>time to glow</h1>
     <p>Эксклюзивные сумки и одежда из линейки Barbie для твоего самого яркого образа.</p>
-    <button class="hero-btn">Смотреть каталог 🛍️</button>
+    <a href="#catalog" class="hero-btn">Смотреть каталог 🛍️</a>
+  </section>
+
+  <!-- МИР ШОПИНГА (КАТАЛОГ) -->
+  <section class="shopping-world" id="catalog">
+    <div class="world-header">
+      <span class="world-tag">Welcome to Barbie World</span>
+      <h2 class="world-title">Твоя <span>Glam Коллекция</span></h2>
+    </div>
+
+    <!-- Фильтры-Переключатели -->
+    <div class="categories">
+      <button class="cat-btn active">Всё сразу ✨</button>
+      <button class="cat-btn">Сумки 👜</button>
+      <button class="cat-btn">Одежда 👗</button>
+      <button class="cat-btn">Обувь & Аксессуары 👠</button>
+    </div>
+
+    <!-- Карточки товаров -->
+    <div class="grid">
+      
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500" class="product-img" alt="Barbie Bag">
+        <div class="product-title">Pink Crystal Bag</div>
+        <div class="price">7 990 ₽</div>
+        <button class="add-btn">В сумочку 🛍️</button>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" class="product-img" alt="Glam Dress">
+        <div class="product-title">Barbie Silk Top</div>
+        <div class="price">4 490 ₽</div>
+        <button class="add-btn">В сумочку 🛍️</button>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=500" class="product-img" alt="Clutch">
+        <div class="product-title">Glow Mini Clutch</div>
+        <div class="price">5 200 ₽</div>
+        <button class="add-btn">В сумочку 🛍️</button>
+      </div>
+
+    </div>
   </section>
 
 </body>
