@@ -540,6 +540,59 @@
       .modal-info { padding: 20px 15px; }
       .modal-title { font-size: 22px; }
     }
+    /* ПОДВАЛ (FOOTER) */
+    footer {
+      background: #080005;
+      border-top: 1px solid rgba(255, 20, 147, 0.25);
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .footer-logo {
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .footer-logo span {
+      color: #ff1493;
+      text-shadow: 0 0 10px #ff1493;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    .footer-link {
+      color: #ffe6f2;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
+
+    .footer-link:hover {
+      color: #ff1493;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: #888;
+    }
   </style>
 </head>
 <body>
@@ -750,6 +803,20 @@
       window.open(telegramUrl, '_blank');
     }
   </script>
+<!-- ПОДВАЛ САЙТА -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">glow<span>.me</span> ✨</div>
+      <p style="font-size: 14px; color: #ffe6f2;">Твой главный бренд стиля и барби-эстетики 💖</p>
+      
+      <div class="footer-links">
+        <a href="https://t.me/kamillameneger" target="_blank" class="footer-link">✈️ Написать менеджеру</a>
+        <span class="footer-link">🚚 Доставка по всей РФ</span>
+        <span class="footer-link">💳 Удобная оплата</span>
+      </div>
 
+      <div class="footer-copy">© 2026 GLOW.ME. Все права защищены ✨</div>
+    </div>
+  </footer>
 </body>
 </html>
