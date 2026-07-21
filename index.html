@@ -716,8 +716,7 @@
     <div class="cart-items" id="cartItems">
       <!-- Товары динамически строятся здесь -->
     </div>
-
-    <div class="cart-footer">
+<div class="cart-footer">
       <div class="total-price">
         <span>Итого:</span>
         <span id="cartTotal">0 ₽</span>
@@ -725,12 +724,14 @@
       <button class="checkout-btn" onclick="sendToTelegram()">Оформить в Telegram ✈️</button>
     </div>
   </div>
-function filterCategory(category, btnElement) {
-      // 1. Переключаем подсветку кнопок
+
+  <script>
+    let cart = [];
+
+    function filterCategory(category, btnElement) {
       document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
       btnElement.classList.add('active');
 
-      // 2. Показываем нужные карточки и скрываем остальные
       const cards = document.querySelectorAll('.grid .card');
       cards.forEach(card => {
         const cardCategory = card.getAttribute('data-category');
@@ -741,8 +742,6 @@ function filterCategory(category, btnElement) {
         }
       });
     }
-  <script>
-    let cart = [];
 
     function openModal(imgSrc, title, price, desc) {
       document.getElementById('modalImg').src = imgSrc;
@@ -848,7 +847,8 @@ function filterCategory(category, btnElement) {
       window.open(telegramUrl, '_blank');
     }
   </script>
-<!-- ПОДВАЛ САЙТА -->
+
+  <!-- ПОДВАЛ САЙТА -->
   <footer>
     <div class="footer-content">
       <div class="footer-logo">glow<span>.me</span> ✨</div>
