@@ -613,17 +613,16 @@
 
   <section class="shopping-world" id="catalog">
 
-    <div class="categories">
-      <button class="cat-btn active">Всё сразу ✨</button>
-      <button class="cat-btn">Сумки 👜</button>
-      <button class="cat-btn">Одежда 👗</button>
-      <button class="cat-btn">Аксессуары 👠</button>
+   <div class="categories">
+      <button class="cat-btn active" onclick="filterCategory('all', this)">Всё сразу ✨</button>
+      <button class="cat-btn" onclick="filterCategory('bags', this)">Сумки 👜</button>
+      <button class="cat-btn" onclick="filterCategory('clothing', this)">Одежда 👗</button>
+      <button class="cat-btn" onclick="filterCategory('accessories', this)">Аксессуары 👠</button>
     </div>
 
     <div class="grid">
-      
-      <!-- ТОВАР 1 -->
-      <div class="card" onclick="openModal('./bag1.PNG', 'Розовая сумка Barbie', 5300, 'Фирменная розовая сумочка из эксклюзивной коллекции Barbie.')">
+   <!-- ТОВАР 1 -->
+      <div class="card" data-category="bags" onclick="openModal('./bag1.PNG', 'Розовая сумка Barbie', 5300, 'Фирменная розовая сумочка из эксклюзивной коллекции Barbie.')">
         <span class="zoom-hint">🔍 Нажми для просмотра</span>
         <div class="img-container">
           <img src="./bag1.PNG" class="product-img" alt="Розовая сумка Barbie">
@@ -634,7 +633,7 @@
       </div>
 
       <!-- ТОВАР 2 -->
-      <div class="card" onclick="openModal('./bag2.PNG', 'Голубая сумка Barbie', 5300, 'Нежно-голубая модель для особенных образов.')">
+      <div class="card" data-category="bags" onclick="openModal('./bag2.PNG', 'Голубая сумка Barbie', 5300, 'Нежно-голубая модель для особенных образов.')">
         <span class="zoom-hint">🔍 Нажми для просмотра</span>
         <div class="img-container">
           <img src="./bag2.PNG" class="product-img" alt="Голубая сумка Barbie">
@@ -645,7 +644,7 @@
       </div>
 
       <!-- ТОВАР 3 -->
-      <div class="card" onclick="openModal('./bag3.PNG', 'Черная сумка Barbie', 5300, 'Классическая черная сумочка с яркими акцентами.')">
+      <div class="card" data-category="bags" onclick="openModal('./bag3.PNG', 'Черная сумка Barbie', 5300, 'Классическая черная сумочка с яркими акцентами.')">
         <span class="zoom-hint">🔍 Нажми для просмотра</span>
         <div class="img-container">
           <img src="./bag3.PNG" class="product-img" alt="Черная сумка Barbie">
