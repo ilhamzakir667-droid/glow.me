@@ -725,7 +725,22 @@
       <button class="checkout-btn" onclick="sendToTelegram()">Оформить в Telegram ✈️</button>
     </div>
   </div>
+function filterCategory(category, btnElement) {
+      // 1. Переключаем подсветку кнопок
+      document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
 
+      // 2. Показываем нужные карточки и скрываем остальные
+      const cards = document.querySelectorAll('.grid .card');
+      cards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        if (category === 'all' || cardCategory === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
   <script>
     let cart = [];
 
