@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GLOW.ME ✨ | Glam Apparel & Bags</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: #0d0108;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Гламурный Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(13, 1, 8, 0.85);
+      backdrop-filter: blur(15px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 20, 147, 0.25);
+    }
+
+    /* Логотип glow.me с эффектом сияния */
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      text-transform: lowercase;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: #ff1493;
+      text-shadow: 0 0 12px #ff1493, 0 0 25px #ff69b4;
+    }
+
+    /* Героическая секция */
+    .hero {
+      height: 85vh;
+      background: radial-gradient(circle at center, #ff1493 0%, #3a0022 65%, #0d0108 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      margin-top: 60px;
+    }
+
+    .hero-badge {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 900;
+      font-style: italic;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #ffe6f2;
+      max-width: 550px;
+      margin-bottom: 35px;
+    }
+
+    .hero-btn {
+      background: #ffffff;
+      color: #ff1493;
+      padding: 16px 36px;
+      border-radius: 30px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .hero-btn:hover {
+      background: #ff1493;
+      color: #ffffff;
+      box-shadow: 0 0 30px #ff1493;
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="logo">glow<span>.me</span> ✨</a>
+    <div style="font-weight: 700; font-size: 14px; color: #ff85c0;">BARBIE SELECTION</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">Official Barbie Vibe</div>
+    <h1>time to glow</h1>
+    <p>Эксклюзивные сумки и одежда из линейки Barbie для твоего самого яркого образа.</p>
+    <button class="hero-btn">Смотреть каталог 🛍️</button>
+  </section>
+
+</body>
+</html>
