@@ -941,7 +941,8 @@
       document.getElementById('cartTotal').innerText = total.toLocaleString() + ' ₽';
       document.getElementById('cartCount').innerText = totalCount;
     }
-function sendToTelegram() {
+
+    function sendToTelegram() {
       if (cart.length === 0) {
         alert('Добавьте хотя бы один товар в корзинку!');
         return;
@@ -968,26 +969,7 @@ function sendToTelegram() {
       const telegramUrl = `https://t.me/kamillameneger?text=${encodeURIComponent(message)}`;
       window.open(telegramUrl, '_blank');
     }
-      
-      // Открывает приложение Telegram напрямую на iPhone / Android
-      const tgAppUrl = `tg://resolve?domain=kamillameneger&text=${encodedMsg}`;
-      // Резервная веб-ссылка
-      const tgWebUrl = `https://t.me/kamillameneger?text=${encodedMsg}`;
-
-      // Сначала пытаемся перекинуть в приложение, если не выходит — в веб-версию
-      window.location.href = tgAppUrl;
-
-      setTimeout(() => {
-        window.location.href = tgWebUrl;
-      }, 500);
-    
-      message += `\n💳 Итого к оплате: ${total.toLocaleString()} ₽\n\nПодскажите, как оплатить и оформить доставку? ✨`;
-
-      const telegramUrl = `https://t.me/kamillameneger?text=${encodeURIComponent(message)}`;
-      window.open(telegramUrl, '_blank');
-    }
   </script>
-
   <!-- ПОДВАЛ САЙТА -->
   <footer>
     <div class="footer-content">
