@@ -675,7 +675,35 @@
     .footer-copy {
       font-size: 12px;
       color: #888;
-    }
+    }/* Блок согласия с политикой в корзине */
+.privacy-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 15px 0;
+  font-size: 12px;
+  color: #ffe6f2;
+  text-align: left;
+  cursor: pointer;
+}
+
+.privacy-check input[type="checkbox"] {
+  accent-color: #ff1493;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.privacy-check a {
+  color: #ff69b4;
+  text-decoration: underline;
+}
+
+.privacy-check a:hover {
+  color: #ff1493;
+}
   </style>
 </head>
 <body>
@@ -804,6 +832,11 @@
         <span>Итого:</span>
         <span id="cartTotal">0 ₽</span>
       </div>
+  <label class="privacy-check">
+        <input type="checkbox" id="privacyAgree" checked>
+        <span>Даю согласие на обработку персональных данных и принимаю <a href="privacy.html" target="_blank">политику конфиденциальности</a>.</span>
+      </label>
+  
       <button class="checkout-btn" onclick="sendToTelegram()">Оформить в Telegram ✈️</button>
     </div>
   </div>
@@ -914,6 +947,13 @@ function sendToTelegram() {
         return;
       }
 
+      // ПРОВЕРКА ГАЛОЧКИ
+      const isAgreed = document.getElementById('privacyAgree').checked;
+      if (!isAgreed) {
+        alert('Для оформления заказа необходимо принять условия политики конфиденциальности!');
+        return;
+      }
+
       let message = "👋 Привет! Хочу оформить заказ с сайта glow.me:\n\n🛍️ Товары:\n";
       let total = 0;
 
@@ -925,7 +965,9 @@ function sendToTelegram() {
 
       message += `\n💳 Итого к оплате: ${total.toLocaleString()} ₽\n\nПодскажите, как оплатить и оформить доставку? ✨`;
 
-      const encodedMsg = encodeURIComponent(message);
+      const telegramUrl = `https://t.me/kamillameneger?text=${encodeURIComponent(message)}`;
+      window.open(telegramUrl, '_blank');
+    }
       
       // Открывает приложение Telegram напрямую на iPhone / Android
       const tgAppUrl = `tg://resolve?domain=kamillameneger&text=${encodedMsg}`;
