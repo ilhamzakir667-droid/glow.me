@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>GLOW.ME ✨ | Glam Apparel & Bags</title>
+  <title>GLOW.ME ✨ | Сервис подбора и заказа аксессуаров</title>
   <style>
-    /* --- АДАПТИВ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ (IPHONE И ДР.) --- */
+    /* --- АДАПТИВ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ --- */
     @media (max-width: 768px) {
       body {
         overflow-x: hidden;
       }
-      /* Исправление вылезающей корзины */
       .cart-drawer {
         width: 100% !important;
         right: -100% !important;
@@ -19,14 +18,12 @@
       .cart-drawer.open {
         right: 0 !important;
       }
-      /* Шапка и навигация */
       header {
         padding: 12px 16px !important;
       }
       .logo {
         font-size: 20px !important;
       }
-      /* Главный баннер (Hero) */
       .hero {
         padding: 40px 16px !important;
         min-height: auto !important;
@@ -38,7 +35,10 @@
       .hero p {
         font-size: 14px !important;
       }
-      /* Кнопки категорий */
+      .steps-container {
+        flex-direction: column !important;
+        gap: 12px !important;
+      }
       .categories {
         display: flex !important;
         overflow-x: auto !important;
@@ -55,7 +55,6 @@
         font-size: 13px !important;
         flex-shrink: 0;
       }
-      /* Сетка товаров (по 1 в ряд) */
       .grid {
         grid-template-columns: 1fr !important;
         gap: 16px !important;
@@ -65,14 +64,12 @@
         padding: 16px !important;
         margin: 0 !important;
       }
-      /* Модальное окно просмотра товара */
       .modal-content {
         width: 92% !important;
         max-height: 90vh !important;
         overflow-y: auto !important;
         padding: 20px !important;
       }
-      /* Подвал */
       footer {
         padding: 30px 16px !important;
       }
@@ -122,7 +119,7 @@
     }
 
     .logo {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 900;
       text-transform: lowercase;
       color: #ffffff;
@@ -163,14 +160,14 @@
 
     /* Главный Экран */
     .hero {
-      height: 100vh;
+      min-height: 100vh;
       background: radial-gradient(circle at center, #ff1493 0%, #3a0022 65%, #0d0108 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 0 20px;
+      padding: 100px 20px 60px;
     }
 
     .hero-badge {
@@ -183,23 +180,56 @@
       font-weight: 700;
       text-transform: uppercase;
       margin-bottom: 20px;
+      letter-spacing: 1px;
     }
 
     .hero h1 {
-      font-size: 64px;
+      font-size: 56px;
       font-weight: 900;
       font-style: italic;
       text-transform: uppercase;
       line-height: 1.1;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
     }
 
     .hero p {
       font-size: 18px;
       color: #ffe6f2;
-      max-width: 550px;
-      margin-bottom: 35px;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    /* Блок Путь клиента (5 шагов) */
+    .steps-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
+      max-width: 950px;
+      width: 100%;
+    }
+
+    .step-item {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 12px 18px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .step-arrow {
+      color: #ff69b4;
+      font-weight: 900;
     }
 
     .hero-btn {
@@ -226,7 +256,7 @@
     /* Секция Каталога */
     .shopping-world {
       min-height: 100vh;
-      padding: 120px 20px 80px;
+      padding: 100px 20px 80px;
       background: linear-gradient(180deg, #0d0108 0%, #1f0215 50%, #0d0108 100%);
     }
 
@@ -336,6 +366,14 @@
       color: #ffffff;
     }
 
+    .price-note {
+      font-size: 11px;
+      color: #a87d95;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
     .price {
       font-size: 22px;
       font-weight: 900;
@@ -350,10 +388,10 @@
       border: none;
       padding: 14px;
       border-radius: 14px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
@@ -432,13 +470,13 @@
     }
 
     .modal-title {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 900;
       margin-bottom: 12px;
     }
 
     .modal-price {
-      font-size: 26px;
+      font-size: 24px;
       color: #ff69b4;
       font-weight: 900;
       margin-bottom: 20px;
@@ -451,7 +489,7 @@
       margin-bottom: 30px;
     }
 
-    /* БОКОВАЯ КОРЗИНА */
+    /* БОКОВАЯ КОРЗИНА / ПОДБОРКА */
     .cart-drawer {
       position: fixed;
       top: 0;
@@ -477,13 +515,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       padding-bottom: 15px;
       border-bottom: 1px solid rgba(255, 20, 147, 0.2);
     }
 
     .cart-title {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 900;
     }
 
@@ -517,12 +555,12 @@
     }
 
     .cart-item-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
     }
 
     .cart-item-price {
-      font-size: 14px;
+      font-size: 13px;
       color: #ff69b4;
       font-weight: 800;
     }
@@ -540,16 +578,16 @@
 
     .cart-footer {
       margin-top: 20px;
-      padding-top: 20px;
+      padding-top: 15px;
       border-top: 1px solid rgba(255, 20, 147, 0.2);
     }
 
     .total-price {
       display: flex;
       justify-content: space-between;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 900;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .checkout-btn {
@@ -559,7 +597,7 @@
       border: none;
       padding: 16px;
       border-radius: 16px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 900;
       text-transform: uppercase;
       cursor: pointer;
@@ -596,22 +634,21 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* ПОДВАЛ (FOOTER) */
+    /* ПОДВАЛ (FOOTER) И ЮРИДИЧЕСКИЙ ДИСКЛЕЙМЕР */
     footer {
       background: #080005;
       border-top: 1px solid rgba(255, 20, 147, 0.25);
-      padding: 40px 20px;
+      padding: 50px 20px 40px;
       text-align: center;
-      margin-top: 40px;
     }
 
     .footer-content {
-      max-width: 800px;
+      max-width: 850px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
     }
 
     .footer-logo {
@@ -625,18 +662,29 @@
       text-shadow: 0 0 10px #ff1493;
     }
 
+    .legal-disclaimer {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 20, 147, 0.15);
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 12px;
+      color: #b3a0ac;
+      line-height: 1.6;
+      text-align: center;
+    }
+
     .footer-links {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
       justify-content: center;
-      margin: 10px 0;
+      margin: 5px 0;
     }
 
     .footer-link {
       color: #ffe6f2;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       transition: color 0.3s;
     }
@@ -647,16 +695,15 @@
 
     .footer-copy {
       font-size: 12px;
-      color: #888;
+      color: #666;
     }
 
-    /* Блок согласия с политикой в корзине */
     .privacy-check {
       display: flex;
       align-items: flex-start;
       gap: 10px;
       margin: 15px 0;
-      font-size: 12px;
+      font-size: 11px;
       color: #ffe6f2;
       text-align: left;
       cursor: pointer;
@@ -664,8 +711,8 @@
 
     .privacy-check input[type="checkbox"] {
       accent-color: #ff1493;
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       margin-top: 2px;
       cursor: pointer;
       flex-shrink: 0;
@@ -675,10 +722,6 @@
       color: #ff69b4;
       text-decoration: underline;
     }
-
-    .privacy-check a:hover {
-      color: #ff1493;
-    }
   </style>
 </head>
 <body>
@@ -686,15 +729,29 @@
   <header>
     <a href="#" class="logo">glow<span>.me</span> ✨</a>
     <div class="cart-trigger" onclick="toggleCart()">
-      🛍️ Корзинка <span class="cart-badge" id="cartCount">0</span>
+      📋 Моя подборка <span class="cart-badge" id="cartCount">0</span>
     </div>
   </header>
 
   <section class="hero">
-    <div class="hero-badge">Official Barbie Vibe</div>
+    <div class="hero-badge">Сервис подбора и заказа аксессуаров</div>
     <h1>time to glow</h1>
-    <p>Эксклюзивные сумки и одежда из линейки Barbie для твоего самого яркого образа.</p>
-    <a href="#catalog" class="hero-btn">Смотреть каталог 🛍️</a>
+    <p>Персональный подбор аксессуаров и одежды из эксклюзивной серии Barbie для твоего самого яркого образа.</p>
+
+    <!-- БЛОК ЭТАПОВ РАБОТЫ -->
+    <div class="steps-container">
+      <div class="step-item">1. Каталог</div>
+      <span class="step-arrow">→</span>
+      <div class="step-item">2. В подборку</div>
+      <span class="step-arrow">→</span>
+      <div class="step-item">3. Менеджер</div>
+      <span class="step-arrow">→</span>
+      <div class="step-item">4. Расчет</div>
+      <span class="step-arrow">→</span>
+      <div class="step-item">5. Оформление</div>
+    </div>
+
+    <a href="#catalog" class="hero-btn">Подобрать модель 🛍️</a>
   </section>
 
   <section class="shopping-world" id="catalog">
@@ -708,156 +765,170 @@
     <div class="grid">
       <!-- ТОВАР 1 -->
       <div class="card" data-category="bags" onclick="openModal('./bag1.PNG', 'Розовая сумка Barbie', 5300, 'Фирменная розовая сумочка из эксклюзивной коллекции Barbie.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag1.PNG" class="product-img" alt="Розовая сумка Barbie">
         </div>
         <div class="product-title">Розовая сумка Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Розовая сумка Barbie', 5300, './bag1.PNG');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Розовая сумка Barbie', 5300, './bag1.PNG');">Запросить расчет 📋</button>
       </div>
 
       <!-- ТОВАР 2 -->
       <div class="card" data-category="bags" onclick="openModal('./bag2.PNG', 'Голубая сумка Barbie', 5300, 'Нежно-голубая модель для особенных образов.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag2.PNG" class="product-img" alt="Голубая сумка Barbie">
         </div>
         <div class="product-title">Голубая сумка Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Голубая сумка Barbie', 5300, './bag2.PNG');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Голубая сумка Barbie', 5300, './bag2.PNG');">Запросить расчет 📋</button>
       </div>
 
       <!-- ТОВАР 3 -->
       <div class="card" data-category="bags" onclick="openModal('./bag3.PNG', 'Черная сумка Barbie', 5300, 'Классическая черная сумочка с яркими акцентами.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag3.PNG" class="product-img" alt="Черная сумка Barbie">
         </div>
         <div class="product-title">Черная сумка Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Черная сумка Barbie', 5300, './bag3.PNG');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Черная сумка Barbie', 5300, './bag3.PNG');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 4 (Форма 1) -->
-      <div class="card" data-category="clothing" onclick="openModal('./dress1.PNG', 'Комплект теннисной формы Barbie', 6500, 'Стильный и функциональный спортивный топ-поло из теннисной коллекции Barbie. Модель выполнена в легком, лаконичном дизайне с аккуратным логотипом бренда на груди. Отлично подходит как для занятий спортом (теннис, падел, фитнес), так и для повседневных образов в стиле sport-chic.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+      <!-- ТОВАР 4 -->
+      <div class="card" data-category="clothing" onclick="openModal('./dress1.PNG', 'Комплект теннисной формы Barbie', 6500, 'Стильный спортивный комплект из теннисной серии Barbie.')">
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./dress1.PNG" class="product-img" alt="Комплект теннисной формы Barbie">
         </div>
         <div class="product-title">Комплект теннисной формы Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">6 500 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Комплект теннисной формы Barbie (Розовая)', 6500, './dress1.PNG');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Комплект теннисной формы Barbie (Розовая)', 6500, './dress1.PNG');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 5 (Форма 2) -->
-      <div class="card" data-category="clothing" onclick="openModal('./dress2.PNG', 'Комплект теннисной формы Barbie', 6500, 'Стильный и функциональный спортивный топ-поло из теннисной коллекции Barbie. Модель выполнена в легком, лаконичном дизайне с аккуратным логотипом бренда на груди. Отлично подходит как для занятий спортом (теннис, падел, фитнес), так и для повседневных образов в стиле sport-chic.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+      <!-- ТОВАР 5 -->
+      <div class="card" data-category="clothing" onclick="openModal('./dress2.PNG', 'Комплект теннисной формы Barbie', 6500, 'Стильный спортивный комплект из теннисной серии Barbie.')">
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./dress2.PNG" class="product-img" alt="Комплект теннисной формы Barbie">
         </div>
         <div class="product-title">Комплект теннисной формы Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">6 500 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Комплект теннисной формы Barbie (Белая)', 6500, './dress2.PNG');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Комплект теннисной формы Barbie (Белая)', 6500, './dress2.PNG');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 6 (Форма 3) -->
-      <div class="card" data-category="clothing" onclick="openModal('./dress3.PNG', 'Комплект теннисной формы Barbie', 5100, 'Стильный и функциональный спортивный топ-поло из теннисной коллекции Barbie. Модель выполнена в легком, лаконичном дизайне с аккуратным логотипом бренда на груди. Отлично подходит как для занятий спортом (теннис, падел, фитнес), так и для повседневных образов в стиле sport-chic.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+      <!-- ТОВАР 6 -->
+      <div class="card" data-category="clothing" onclick="openModal('./dress3.PNG', 'Комплект теннисной формы Barbie', 5100, 'Стильный спортивный комплект из теннисной серии Barbie.')">
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./dress3.PNG" class="product-img" alt="Комплект теннисной формы Barbie">
         </div>
         <div class="product-title">Комплект теннисной формы Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 100 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Комплект теннисной формы Barbie (Черная)', 5100, './dress3.PNG');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Комплект теннисной формы Barbie (Черная)', 5100, './dress3.PNG');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 7 (bag4) -->
-      <div class="card" data-category="bags" onclick="openModal('./bag4.jpg', 'Красная сумка-хобо Barbie', 5300, 'Яркая красная сумка-хобо Barbie в стильнный белый горошек.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+      <!-- ТОВАР 7 -->
+      <div class="card" data-category="bags" onclick="openModal('./bag4.jpg', 'Красная сумка-хобо Barbie', 5300, 'Яркая красная сумка-хобо Barbie в стильный белый горошек.')">
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag4.jpg" class="product-img" alt="Красная сумка-хобо Barbie">
         </div>
         <div class="product-title">Красная сумка-хобо Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Красная сумка-хобо Barbie в белый горошек', 5300, './bag4.jpg');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Красная сумка-хобо Barbie', 5300, './bag4.jpg');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 8 (bag5) -->
+      <!-- ТОВАР 8 -->
       <div class="card" data-category="bags" onclick="openModal('./bag5.jpg', 'Розовая сумка-хобо Barbie', 5300, 'Элегантная розовая сумка-хобо Barbie в романтичный белый горошек.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag5.jpg" class="product-img" alt="Розовая сумка-хобо Barbie">
         </div>
         <div class="product-title">Розовая сумка-хобо Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Розовая сумка-хобо Barbie в белый горошек', 5300, './bag5.jpg');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Розовая сумка-хобо Barbie', 5300, './bag5.jpg');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 9 (bag6) -->
+      <!-- ТОВАР 9 -->
       <div class="card" data-category="bags" onclick="openModal('./bag6.jpg', 'Бежевая сумка-хобо Barbie', 5300, 'Утонченная бежевая сумка-хобо Barbie в классический черный горошек.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag6.jpg" class="product-img" alt="Бежевая сумка-хобо Barbie">
         </div>
         <div class="product-title">Бежевая сумка-хобо Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Бежевая сумка-хобо Barbie в черный горошек', 5300, './bag6.jpg');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Бежевая сумка-хобо Barbie', 5300, './bag6.jpg');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 10 (bag7) -->
-      <div class="card" data-category="bags" onclick="openModal('./bag7.jpg', 'Голубая джинсовая сумка-боулер Barbie', 5300, 'Трендовая голубая джинсовая сумка-боулер Barbie в комплекте со стильным мини-чехлом.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+      <!-- ТОВАР 10 -->
+      <div class="card" data-category="bags" onclick="openModal('./bag7.jpg', 'Голубая джинсовая сумка-боулер Barbie', 5300, 'Трендовая голубая джинсовая сумка-боулер Barbie с мини-чехлом.')">
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag7.jpg" class="product-img" alt="Голубая джинсовая сумка-боулер Barbie">
         </div>
         <div class="product-title">Голубая джинсовая сумка-боулер Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Голубая джинсовая сумка-боулер Barbie с мини-чехлом', 5300, './bag7.jpg');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Голубая джинсовая сумка-боулер Barbie', 5300, './bag7.jpg');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 11 (bag8) -->
-      <div class="card" data-category="bags" onclick="openModal('./bag8.jpg', 'Джинсовая сумка-боулер Barbie', 5300, 'Эффектная джинсовая сумка-боулер Barbie с контрастными бежевыми ручками.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+      <!-- ТОВАР 11 -->
+      <div class="card" data-category="bags" onclick="openModal('./bag8.jpg', 'Джинсовая сумка-боулер Barbie', 5300, 'Эффектная джинсовая сумка-боулер Barbie с бежевыми ручками.')">
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag8.jpg" class="product-img" alt="Джинсовая сумка-боулер Barbie">
         </div>
         <div class="product-title">Джинсовая сумка-боулер Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Джинсовая сумка-боулер Barbie с бежевыми ручками', 5300, './bag8.jpg');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Джинсовая сумка-боулер Barbie', 5300, './bag8.jpg');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 12 (bag9) -->
+      <!-- ТОВАР 12 -->
       <div class="card" data-category="accessories" onclick="openModal('./bag9.jpg', 'Розовые атласные туфли Barbie', 12000, 'Роскошные розовые атласные туфли Barbie со скульптурным каблуком-цветком.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag9.jpg" class="product-img" alt="Розовые атласные туфли Barbie">
         </div>
         <div class="product-title">Розовые атласные туфли Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">12 000 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Розовые атласные туфли Barbie с каблуком-цветком', 12000, './bag9.jpg');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Розовые атласные туфли Barbie', 12000, './bag9.jpg');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 13 (bag10) -->
-      <div class="card" data-category="bags" onclick="openModal('./bag10.jpg', 'Темная замшевая сумка-боулер Barbie', 5300, 'Глубокая темная замшевая сумка-боулер Barbie с фирменными брелоками.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+      <!-- ТОВАР 13 -->
+      <div class="card" data-category="bags" onclick="openModal('./bag10.jpg', 'Темная замшевая сумка-боулер Barbie', 5300, 'Глубокая темная замшевая сумка-боулер Barbie с брелоками.')">
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag10.jpg" class="product-img" alt="Темная замшевая сумка-боулер Barbie">
         </div>
         <div class="product-title">Темная замшевая сумка-боулер Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Темная замшевая сумка-боулер Barbie с брелоками', 5300, './bag10.jpg');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Темная замшевая сумка-боулер Barbie', 5300, './bag10.jpg');">Запросить расчет 📋</button>
       </div>
 
-      <!-- ТОВАР 14 (bag11) -->
-      <div class="card" data-category="bags" onclick="openModal('./bag11.jpg', 'Черная глянцевая сумка-тоут Barbie', 5300, 'Вместительная и дерзкая черная глянцевая сумка-тоут Barbie со стильным брелоком.')">
-        <span class="zoom-hint">🔍 Нажми для просмотра</span>
+      <!-- ТОВАР 14 -->
+      <div class="card" data-category="bags" onclick="openModal('./bag11.jpg', 'Черная глянцевая сумка-тоут Barbie', 5300, 'Вместительная и дерзкая черная глянцевая сумка-тоут Barbie.')">
+        <span class="zoom-hint">🔍 Подробнее</span>
         <div class="img-container">
           <img src="./bag11.jpg" class="product-img" alt="Черная глянцевая сумка-тоут Barbie">
         </div>
         <div class="product-title">Черная глянцевая сумка-тоут Barbie</div>
+        <div class="price-note">Ориентировочная стоимость</div>
         <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Черная глянцевая сумка-тоут Barbie с брелоком', 5300, './bag11.jpg');">В корзиночку 🛍️</button>
+        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Черная глянцевая сумка-тоут Barbie', 5300, './bag11.jpg');">Запросить расчет 📋</button>
       </div>
 
     </div>
@@ -868,13 +939,14 @@
     <div class="modal-content" onclick="event.stopPropagation()">
       <span class="close-btn" onclick="closeModal()">&times;</span>
       <div class="modal-img-box">
-        <img src="" id="modalImg" class="modal-img" alt="Увеличенный товар">
+        <img src="" id="modalImg" class="modal-img" alt="Детали товара">
       </div>
       <div class="modal-info">
-        <h2 class="modal-title" id="modalTitle">Название товара</h2>
+        <h2 class="modal-title" id="modalTitle">Название модели</h2>
+        <div class="price-note">Предварительный расчет</div>
         <div class="modal-price" id="modalPrice">0 ₽</div>
-        <p class="modal-desc" id="modalDesc">Описание товара появится здесь.</p>
-        <button class="add-btn" id="modalAddBtn">Забрать в сумочку 🛍️</button>
+        <p class="modal-desc" id="modalDesc">Описание позиции появится здесь.</p>
+        <button class="add-btn" id="modalAddBtn">Добавить в подборку 📋</button>
       </div>
     </div>
   </div>
@@ -884,24 +956,24 @@
 
   <div class="cart-drawer" id="cartDrawer">
     <div class="cart-header">
-      <div class="cart-title">Твоя Корзинка 🛍️</div>
+      <div class="cart-title">Ваша подборка 📋</div>
       <span class="close-btn" style="position:static;" onclick="toggleCart()">&times;</span>
     </div>
 
     <div class="cart-items" id="cartItems">
-      <!-- Товары динамически строятся здесь -->
+      <!-- Динамические товары -->
     </div>
 
     <div class="cart-footer">
       <div class="total-price">
-        <span>Итого:</span>
+        <span>Предварительно:</span>
         <span id="cartTotal">0 ₽</span>
       </div>
       <label class="privacy-check">
         <input type="checkbox" id="privacyAgree" checked>
-        <span>Даю согласие на обработку персональных данных и принимаю <a href="privacy.html" target="_blank">политику конфиденциальности</a>.</span>
+        <span>Согласен на обработку персональных данных и принимаю условия <a href="privacy.html" target="_blank">Политики конфиденциальности</a>.</span>
       </label>
-      <button class="checkout-btn" onclick="sendToTelegram()">Оформить в Telegram ✈️</button>
+      <button class="checkout-btn" onclick="sendToTelegram()">Отправить менеджеру ✈️</button>
     </div>
   </div>
 
@@ -978,7 +1050,7 @@
       let totalCount = 0;
 
       if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<div style="text-align:center; color:#888; margin-top:40px;">Корзинка пока пуста 💖</div>';
+        cartItemsContainer.innerHTML = '<div style="text-align:center; color:#888; margin-top:40px;">В вашей подборке пока нет товаров ✨</div>';
       }
 
       cart.forEach(item => {
@@ -1008,44 +1080,48 @@
 
     function sendToTelegram() {
       if (cart.length === 0) {
-        alert('Добавьте хотя бы один товар в корзинку!');
+        alert('Пожалуйста, добавьте хотя бы одну позицию в подборку!');
         return;
       }
 
-      // ПРОВЕРКА ГАЛОЧКИ
       const isAgreed = document.getElementById('privacyAgree').checked;
       if (!isAgreed) {
-        alert('Для оформления заказа необходимо принять условия политики конфиденциальности!');
+        alert('Для отправки запроса необходимо принять условия политики конфиденциальности.');
         return;
       }
 
-      let message = "👋 Привет! Хочу оформить заказ с сайта glow.me:\n\n🛍️ Товары:\n";
+      let message = "Здравствуйте! Хочу уточнить детали и оформить заявку на подбор позиции из каталога glow.me:\n\n📋 Подборка позиций:\n";
       let total = 0;
 
       cart.forEach((item, index) => {
         const sum = item.price * item.quantity;
         total += sum;
-        message += `${index + 1}. ${item.title} (${item.quantity} шт.) — ${sum.toLocaleString()} ₽\n`;
+        message += `${index + 1}. ${item.title} (${item.quantity} шт.) — около ${sum.toLocaleString()} ₽\n`;
       });
 
-      message += `\n💳 Итого к оплате: ${total.toLocaleString()} ₽\n\nПодскажите, как оплатить и оформить доставку? ✨`;
+      message += `\n💰 Предварительный расчет: ${total.toLocaleString()} ₽\n\nПодскажите, пожалуйста, по следующим этапам:\n1. Уточнение наличия;\n2. Согласование итоговой цены;\n3. Способы оплаты;\n4. Детали доставки. ✨`;
 
       const telegramUrl = `https://t.me/kamillameneger?text=${encodeURIComponent(message)}`;
       window.open(telegramUrl, '_blank');
     }
   </script>
 
-  <!-- ПОДВАЛ САЙТА -->
+  <!-- ПОДВАЛ САЙТА С ЮРИДИЧЕСКИМ ДИСКЛЕЙМЕРОМ -->
   <footer>
     <div class="footer-content">
       <div class="footer-logo">glow<span>.me</span> ✨</div>
-      <p style="font-size: 14px; color: #ffe6f2;">Твой главный бренд стиля и барби-эстетики 💖</p>
+      <p style="font-size: 14px; color: #ffe6f2;">Сервис персонального подбора и заказа брендовых аксессуаров 💖</p>
       
+      <!-- ДИСКЛЕЙМЕР ОТСУТСТВИЯ ПУБЛИЧНОЙ ОФЕРТЫ -->
+      <div class="legal-disclaimer">
+        Информация о товарах, характеристиках, ориентировочной стоимости и наличии, представленная на сайте, носит исключительно ознакомительный характер и не является публичной офертой. Для подтверждения наличия, точного расчета стоимости и оформления заказа, пожалуйста, свяжитесь с персональным менеджером.
+      </div>
+
       <div class="footer-links">
-        <a href="https://t.me/kamillameneger" target="_blank" class="footer-link">✈️ Написать менеджеру</a>
+        <a href="https://t.me/kamillameneger" target="_blank" class="footer-link">✈️ Связаться с менеджером</a>
         <a href="privacy.html" target="_blank" class="footer-link">🔒 Политика конфиденциальности</a>
-        <span class="footer-link">🚚 Доставка по всему СНГ</span>
-        <span class="footer-link">💳 Удобная оплата</span>
+        <span class="footer-link">🚚 Доставка по РФ и СНГ</span>
+        <span class="footer-link">💳 Персональный расчет</span>
       </div>
 
       <div class="footer-copy">© 2026 GLOW.ME. Все права защищены ✨</div>
