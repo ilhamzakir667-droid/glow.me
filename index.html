@@ -5,77 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>GLOW.ME ✨ | Сервис подбора и заказа аксессуаров</title>
   <style>
-    /* --- АДАПТИВ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ --- */
+    /* --- ОБНОВЛЕННЫЙ МОБИЛЬНЫЙ АДАПТИВ (iOS/Android/Telegram) --- */
     @media (max-width: 768px) {
       body {
         overflow-x: hidden;
       }
-      .cart-drawer {
-        width: 100% !important;
-        right: -100% !important;
-        max-width: 100%;
-      }
-      .cart-drawer.open {
-        right: 0 !important;
-      }
+
+      /* Шапка */
       header {
-        padding: 12px 16px !important;
+        padding: 10px 14px !important;
       }
       .logo {
-        font-size: 20px !important;
+        font-size: 18px !important;
       }
+      .cart-trigger {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        border-radius: 14px !important;
+      }
+
+      /* Главный экран (Hero) */
       .hero {
-        padding: 40px 16px !important;
+        padding: 70px 14px 30px !important;
         min-height: auto !important;
       }
+      .hero-badge {
+        font-size: 10px !important;
+        padding: 5px 12px !important;
+        margin-bottom: 12px !important;
+      }
       .hero h1 {
-        font-size: 28px !important;
-        line-height: 1.2 !important;
+        font-size: 32px !important;
+        margin-bottom: 10px !important;
       }
       .hero p {
-        font-size: 14px !important;
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 20px !important;
       }
+
+      /* Блок 5 шагов (аккуратный компактный скролл) */
       .steps-container {
-        flex-direction: column !important;
-        gap: 12px !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        justify-content: flex-start !important;
+        width: 100% !important;
+        padding: 4px 0 10px !important;
+        gap: 8px !important;
+        -webkit-overflow-scrolling: touch;
+      }
+      .steps-container::-webkit-scrollbar {
+        display: none;
+      }
+      .step-item {
+        flex: 0 0 auto !important;
+        font-size: 11px !important;
+        padding: 6px 10px !important;
+        white-space: nowrap !important;
+      }
+      .step-arrow {
+        font-size: 10px !important;
+      }
+
+      .hero-btn {
+        padding: 12px 28px !important;
+        font-size: 12px !important;
+        width: 100% !important;
+        max-width: 280px !important;
+      }
+
+      /* Категории (строго в 1 строку со скроллом) */
+      .shopping-world {
+        padding: 30px 14px 60px !important;
       }
       .categories {
         display: flex !important;
+        flex-wrap: nowrap !important;
         overflow-x: auto !important;
-        white-space: nowrap !important;
-        padding: 5px 10px !important;
+        justify-content: flex-start !important;
+        padding-bottom: 8px !important;
         gap: 8px !important;
+        margin-bottom: 25px !important;
         -webkit-overflow-scrolling: touch;
       }
       .categories::-webkit-scrollbar {
         display: none;
       }
       .cat-btn {
-        padding: 8px 14px !important;
-        font-size: 13px !important;
-        flex-shrink: 0;
+        padding: 8px 16px !important;
+        font-size: 12px !important;
+        flex: 0 0 auto !important;
+        white-space: nowrap !important;
       }
+
+      /* Сетка карточек */
       .grid {
         grid-template-columns: 1fr !important;
         gap: 16px !important;
-        padding: 10px 16px !important;
       }
       .card {
-        padding: 16px !important;
-        margin: 0 !important;
+        padding: 14px !important;
       }
-      .modal-content {
-        width: 92% !important;
-        max-height: 90vh !important;
-        overflow-y: auto !important;
-        padding: 20px !important;
+      .img-container {
+        height: 220px !important;
       }
-      footer {
-        padding: 30px 16px !important;
+
+      /* Корзина / Подборка */
+      .cart-drawer {
+        width: 100% !important;
+        right: -100% !important;
       }
-      .footer-links {
-        flex-direction: column !important;
-        gap: 10px !important;
+      .cart-drawer.open {
+        right: 0 !important;
       }
     }
 
