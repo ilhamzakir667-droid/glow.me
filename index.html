@@ -1111,17 +1111,19 @@ function triggerSparkles(event) {
 function triggerSparkles(event) {
   if (typeof confetti !== 'function') return;
 
-  const x = event ? event.clientX / window.innerWidth : 0.5;
-  const y = event ? event.clientY / window.innerHeight : 0.5;
+  // Безопасно получаем координаты клика мышкой
+  const x = (event && event.clientX) ? event.clientX / window.innerWidth : 0.5;
+  const y = (event && event.clientY) ? event.clientY / window.innerHeight : 0.5;
 
   confetti({
-    particleCount: 35,
-    spread: 70,
+    particleCount: 40,
+    spread: 80,
     origin: { x: x, y: y },
     colors: ['#ff1493', '#ff69b4', '#ffd700', '#ffffff'],
     shapes: ['star', 'circle'],
-    scalar: 0.9,
-    ticks: 80
+    scalar: 1,
+    ticks: 100,
+    zIndex: 99999 // 
   });
 }
     function toggleCart() {
