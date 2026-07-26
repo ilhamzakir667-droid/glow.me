@@ -983,7 +983,7 @@
   <!-- ОВЕРЛЕЙ И БОКОВАЯ КОРЗИНА -->
   <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
-  <div class="cart-drawer" id="cartDrawer">
+<div class="cart-drawer" id="cartDrawer">
     <div class="cart-header">
       <div class="cart-title">Ваша подборка 📋</div>
       <span class="close-btn" style="position:static;" onclick="toggleCart()">&times;</span>
@@ -994,20 +994,61 @@
     </div>
 
     <div class="cart-footer">
+      <!-- БЛОК ВВОДА ПРОМОКОДА -->
+      <div style="margin-bottom: 15px;">
+        <div style="display: flex; gap: 8px;">
+          <input 
+            type="text" 
+            id="promoInput" 
+            placeholder="Промокод (напр. БЛЕСК)" 
+            style="
+              flex: 1;
+              padding: 10px 14px;
+              background: rgba(255,255,255,0.05);
+              border: 1px solid rgba(255, 20, 147, 0.4);
+              border-radius: 12px;
+              color: #fff;
+              font-size: 13px;
+              outline: none;
+              text-transform: uppercase;
+            "
+          >
+          <button 
+            type="button" 
+            onclick="applyPromoCode()"
+            style="
+              padding: 10px 16px;
+              background: linear-gradient(135deg, #ff1493, #ff69b4);
+              border: none;
+              border-radius: 12px;
+              color: #fff;
+              font-weight: 800;
+              cursor: pointer;
+              font-size: 12px;
+            "
+          >Применить</button>
+        </div>
+        <div id="promoMsg" style="font-size: 11px; margin-top: 6px; display: none;"></div>
+      </div>
+
       <div class="total-price">
         <span>Предварительно:</span>
         <span id="cartTotal">0 ₽</span>
       </div>
+
       <label class="privacy-check">
         <input type="checkbox" id="privacyAgree" checked>
         <span>Согласен на обработку персональных данных и принимаю условия <a href="privacy.html" target="_blank">Политики конфиденциальности</a>.</span>
       </label>
+
       <button class="checkout-btn" onclick="sendToTelegram()">Отправить менеджеру ✈️</button>
     </div>
   </div>
 
   <script>
     let cart = [];
+    let appliedPromo = null;
+    let promoDiscountTotal = 0;
 
     function filterCategory(category, btnElement) {
       document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
@@ -1055,87 +1096,142 @@
       } else {
         cart.push({ title, price, img, quantity: 1 });
       }
-
-      updateCartUI();
+      
+      updateCartDisplay();
       toggleCart();
     }
 
-    function changeQty(title, delta) {
-      const item = cart.find(item => item.title === title);
-      if (item) {
-        item.quantity += delta;
-        if (item.quantity <= 0) {
-          cart = cart.filter(i => i.title !== title);
-        }
+    function changeQty(index, delta) {
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
       }
-      updateCartUI();
+      updateCartDisplay();
     }
 
-    function updateCartUI() {
-      const cartItemsContainer = document.getElementById('cartItems');
-      cartItemsContainer.innerHTML = '';
+    function applyPromoCode() {
+      const input = document.getElementById('promoInput');
+      const msg = document.getElementById('promoMsg');
+      if (!input || !msg) return;
 
-      let total = 0;
-      let totalCount = 0;
+      const code = input.value.trim().toUpperCase();
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-      if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<div style="text-align:center; color:#888; margin-top:40px;">В вашей подборке пока нет товаров ✨</div>';
+      if (totalCount === 0) {
+        msg.style.display = 'block';
+        msg.style.color = '#ff4d4d';
+        msg.innerText = 'Сначала добавьте товары в подборку!';
+        return;
       }
 
-      cart.forEach(item => {
-        total += item.price * item.quantity;
-        totalCount += item.quantity;
+      if (code === 'БЛЕСК') {
+        appliedPromo = 'БЛЕСК';
+        msg.style.display = 'block';
+        msg.style.color = '#00ff88';
+        msg.innerText = `✨ Промокод БЛЕСК применен! (-300 ₽ на каждый товар)`;
+      } else if (code === '') {
+        appliedPromo = null;
+        msg.style.display = 'none';
+      } else {
+        appliedPromo = null;
+        msg.style.display = 'block';
+        msg.style.color = '#ff4d4d';
+        msg.innerText = 'Неверный промокод';
+      }
 
-        const itemEl = document.createElement('div');
-        itemEl.className = 'cart-item';
-        itemEl.innerHTML = `
-          <img src="${item.img}" class="cart-item-img">
-          <div class="cart-item-info">
-            <div class="cart-item-title">${item.title}</div>
-            <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} ₽</div>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <button class="qty-btn" onclick="changeQty('${item.title}', -1)">-</button>
-            <span style="font-size:14px; font-weight:800;">${item.quantity}</span>
-            <button class="qty-btn" onclick="changeQty('${item.title}', 1)">+</button>
-          </div>
-        `;
-        cartItemsContainer.appendChild(itemEl);
-      });
+      updateCartDisplay();
+    }
 
-      document.getElementById('cartTotal').innerText = total.toLocaleString() + ' ₽';
-      document.getElementById('cartCount').innerText = totalCount;
+    function updateCartDisplay() {
+      const cartItemsContainer = document.getElementById('cartItems');
+      const cartCount = document.getElementById('cartCount');
+      const cartTotal = document.getElementById('cartTotal');
+
+      // 1. Считаем общее количество
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      if (cartCount) cartCount.innerText = totalCount;
+
+      // 2. Отрисовываем товары в подборке
+      cartItemsContainer.innerHTML = '';
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<div style="text-align:center; color:#888; margin-top:20px; font-size:13px;">Подборка пока пуста ✨</div>';
+        appliedPromo = null;
+        promoDiscountTotal = 0;
+        const msg = document.getElementById('promoMsg');
+        if (msg) msg.style.display = 'none';
+      } else {
+        cart.forEach((item, index) => {
+          const itemEl = document.createElement('div');
+          itemEl.className = 'cart-item';
+          itemEl.innerHTML = `
+            <img src="${item.img}" class="cart-item-img" alt="${item.title}">
+            <div class="cart-item-info">
+              <div class="cart-item-title">${item.title}</div>
+              <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} ₽</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+              <span style="font-size:12px; font-weight:800;">${item.quantity}</span>
+              <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+            </div>
+          `;
+          cartItemsContainer.appendChild(itemEl);
+        });
+      }
+
+      // 3. Расчет стоимости и скидки
+      const rawTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      if (appliedPromo === 'БЛЕСК') {
+        promoDiscountTotal = totalCount * 300;
+      } else {
+        promoDiscountTotal = 0;
+      }
+
+      const finalTotal = Math.max(0, rawTotal - promoDiscountTotal);
+
+      if (promoDiscountTotal > 0) {
+        cartTotal.innerHTML = `<s style="opacity: 0.5; font-size: 0.8em; margin-right: 6px;">${rawTotal.toLocaleString()} ₽</s> ${finalTotal.toLocaleString()} ₽`;
+      } else {
+        cartTotal.innerText = `${finalTotal.toLocaleString()} ₽`;
+      }
     }
 
     function sendToTelegram() {
+      const privacyAgree = document.getElementById('privacyAgree');
+      if (privacyAgree && !privacyAgree.checked) {
+        alert('Для отправки запроса необходимо принять условия политики конфиденциальности.');
+        return;
+      }
+
       if (cart.length === 0) {
         alert('Пожалуйста, добавьте хотя бы одну позицию в подборку!');
         return;
       }
 
-      const isAgreed = document.getElementById('privacyAgree').checked;
-      if (!isAgreed) {
-        alert('Для отправки запроса необходимо принять условия политики конфиденциальности.');
-        return;
-      }
+      const rawTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const finalTotal = Math.max(0, rawTotal - promoDiscountTotal);
 
       let message = "Здравствуйте! Хочу уточнить детали и оформить заявку на подбор позиции из каталога glamme.shop:\n\n📋 Подборка позиций:\n";
-      let total = 0;
 
       cart.forEach((item, index) => {
         const sum = item.price * item.quantity;
-        total += sum;
         message += `${index + 1}. ${item.title} (${item.quantity} шт.) — около ${sum.toLocaleString()} ₽\n`;
       });
 
-      message += `\n💰 Предварительный расчет: ${total.toLocaleString()} ₽\n\nПодскажите, пожалуйста, по следующим этапам:\n1. Уточнение наличия;\n2. Согласование итоговой цены;\n3. Способы оплаты;\n4. Детали доставки. ✨`;
+      if (appliedPromo) {
+        message += `\n🎟 Промокод: ${appliedPromo}`;
+        message += `\n💖 Скидка: -${promoDiscountTotal.toLocaleString()} ₽ (300 ₽ × ${cart.reduce((s, k) => s + k.quantity, 0)} шт.)`;
+      }
+
+      message += `\n\n💰 Предварительный расчет: ${finalTotal.toLocaleString()} ₽\n\nПодскажите, пожалуйста, по следующим этапам:\n1. Уточнение наличия;\n2. Согласование итоговой цены;\n3. Способы оплаты;\n4. Детали доставки. ✨`;
 
       const telegramUrl = `https://t.me/kamillameneger?text=${encodeURIComponent(message)}`;
       window.open(telegramUrl, '_blank');
     }
   </script>
 
- <!-- ПОДВАЛ САЙТА С ЮРИДИЧЕСКИМ ДИСКЛЕЙМЕРОМ -->
+  <!-- ПОДВАЛ САЙТА С ЮРИДИЧЕСКИМ ДИСКЛЕЙМЕРОМ -->
   <footer>
     <div class="footer-content">
       <div class="footer-logo">glamme<span>.shop</span> ✨</div>
