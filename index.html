@@ -4,7 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>GLAM.ME ✨ | Сервис подбора и заказа аксессуаров</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
+    /* Кастомный курсор для всего сайта (Волшебная палочка) */
+body {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text y='20' font-size='18'>🪄</text></svg>"), auto;
+}
+
+/* При наведении на кнопки, ссылки и карточки (Блестки) */
+a, button, .card, .cat-btn, .qty-btn, .close-btn, .checkout-btn {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text y='20' font-size='18'>✨</text></svg>"), pointer !important;
+}
     /* --- ОБНОВЛЕННЫЙ МОБИЛЬНЫЙ АДАПТИВ (iOS/Android/Telegram) --- */
     @media (max-width: 768px) {
       body {
@@ -1050,7 +1060,22 @@
     let cart = [];
     let appliedPromo = null;
     let promoDiscountTotal = 0;
+function triggerSparkles(event) {
+    if (typeof confetti !== 'function') return;
 
+    const x = event ? event.clientX / window.innerWidth : 0.5;
+    const y = event ? event.clientY / window.innerHeight : 0.5;
+
+    confetti({
+      particleCount: 35,
+      spread: 70,
+      origin: { x: x, y: y },
+      colors: ['#ff1493', '#ff69b4', '#ffd700', '#ffffff'],
+      shapes: ['star', 'circle'],
+      scalar: 0.9,
+      ticks: 80
+    });
+  }
     function filterCategory(category, btnElement) {
       document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
       btnElement.classList.add('active');
@@ -1072,10 +1097,10 @@
       document.getElementById('modalPrice').innerText = price.toLocaleString() + ' ₽';
       document.getElementById('modalDesc').innerText = desc;
       
-      document.getElementById('modalAddBtn').onclick = function() {
-        addToCart(title, price, imgSrc);
-        closeModal();
-      };
+      document.getElementById('modalAddBtn').onclick = function(e) {
+  addToCart(title, price, imgSrc, e);
+  closeModal();
+};
 
       document.getElementById('productModal').classList.add('active');
     }
@@ -1083,24 +1108,41 @@
     function closeModal() {
       document.getElementById('productModal').classList.remove('active');
     }
+function triggerSparkles(event) {
+  if (typeof confetti !== 'function') return;
 
+  const x = event ? event.clientX / window.innerWidth : 0.5;
+  const y = event ? event.clientY / window.innerHeight : 0.5;
+
+  confetti({
+    particleCount: 35,
+    spread: 70,
+    origin: { x: x, y: y },
+    colors: ['#ff1493', '#ff69b4', '#ffd700', '#ffffff'],
+    shapes: ['star', 'circle'],
+    scalar: 0.9,
+    ticks: 80
+  });
+}
     function toggleCart() {
       document.getElementById('cartDrawer').classList.toggle('open');
       document.getElementById('cartOverlay').classList.toggle('active');
     }
 
-    function addToCart(title, price, img) {
-      const existingItem = cart.find(item => item.title === title);
-      
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        cart.push({ title, price, img, quantity: 1 });
-      }
-      
-      updateCartDisplay();
-      toggleCart();
-    }
+  function addToCart(title, price, img, event) {
+  if (event) triggerSparkles(event);
+
+  const existingItem = cart.find(item => item.title === title);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ title, price, img, quantity: 1 });
+  }
+
+  updateCartDisplay();
+  toggleCart();
+}
 
     function changeQty(index, delta) {
       cart[index].quantity += delta;
