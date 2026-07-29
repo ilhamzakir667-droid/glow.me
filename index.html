@@ -1101,7 +1101,7 @@
   <button class="add-btn" onclick="event.stopPropagation(); addToCart('Бейсболка Barbie Two-Tone (Голубо-бежевая)', 1900, 'item18.PNG');">Запросить расчет 📋</button>
 </div>
 
-  <!-- МОДАЛЬНОЕ ОКНО ПРОСМОТРА -->
+ <!-- МОДАЛЬНОЕ ОКНО ПРОСМОТРА -->
   <div class="modal" id="productModal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -1113,30 +1113,34 @@
         <div class="price-note">Предварительный расчет</div>
         <div class="modal-price" id="modalPrice">0 ₽</div>
         <p class="modal-desc" id="modalDesc">Описание позиции появится здесь.</p>
+        
         <button class="add-btn" id="modalAddBtn">
-  Добавить в подборку 📋
-</button>
+          Добавить в подборку 📋
+        </button>
 
-<button class="modal-action-btn" onclick="sendSingleProductToTg()">
-  💬 Написать менеджеру
-</button>
+        <button class="modal-action-btn" onclick="sendSingleProductToTg()">
+          💬 Написать менеджеру
+        </button>
 
-<div class="tg-fallback">
-  <span class="tg-fallback-title">
-    Не открывается Telegram?
-  </span>
+        <div class="tg-fallback">
+          <span class="tg-fallback-title">
+            Не открывается Telegram?
+          </span>
 
-  <button
-    class="copy-username-btn"
-    onclick="copyTgUsername('@kamillameneger', event)">
-    Скопировать @kamillameneger 📋
-  </button>
-</div>
+          <button
+            class="copy-username-btn"
+            onclick="copyTgUsername('@kamillameneger', event)">
+            Скопировать @kamillameneger 📋
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ОВЕРЛЕЙ И БОКОВАЯ КОРЗИНА -->
   <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
-<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer" id="cartDrawer">
     <div class="cart-header">
       <div class="cart-title">Ваша подборка 📋</div>
       <span class="close-btn" style="position:static;" onclick="toggleCart()">&times;</span>
@@ -1202,22 +1206,65 @@
     let cart = [];
     let appliedPromo = null;
     let promoDiscountTotal = 0;
-function triggerSparkles(event) {
-    if (typeof confetti !== 'function') return;
+    let currentProduct = null;
 
-    const x = event ? event.clientX / window.innerWidth : 0.5;
-    const y = event ? event.clientY / window.innerHeight : 0.5;
+    // Скопировать юзернейм с обратной связью
+    function copyTgUsername(username, event) {
+      navigator.clipboard.writeText(username).then(() => {
+        const btn = event.currentTarget;
+        const old = btn.innerText;
 
-    confetti({
-      particleCount: 35,
-      spread: 70,
-      origin: { x: x, y: y },
-      colors: ['#ff1493', '#ff69b4', '#ffd700', '#ffffff'],
-      shapes: ['star', 'circle'],
-      scalar: 0.9,
-      ticks: 80
-    });
-  }
+        btn.innerText = "Скопировано! ✨";
+        btn.style.background = "#00c853";
+
+        setTimeout(() => {
+          btn.innerText = old;
+          btn.style.background = "";
+        }, 1800);
+      });
+    }
+
+    // Отправить конкретный товар менеджеру
+    function sendSingleProductToTg() {
+      if (!currentProduct) return;
+
+      const text = `Здравствуйте!
+
+Меня заинтересовала позиция:
+
+📦 ${currentProduct.title}
+
+💰 Ориентировочная стоимость: ${currentProduct.price.toLocaleString()} ₽
+
+Подскажите, пожалуйста:
+• наличие;
+• итоговую стоимость;
+• сроки доставки.`;
+
+      window.open(
+        "https://t.me/kamillameneger?text=" + encodeURIComponent(text),
+        "_blank"
+      );
+    }
+
+    function triggerSparkles(event) {
+      if (typeof confetti !== 'function') return;
+
+      const x = (event && event.clientX) ? event.clientX / window.innerWidth : 0.5;
+      const y = (event && event.clientY) ? event.clientY / window.innerHeight : 0.5;
+
+      confetti({
+        particleCount: 40,
+        spread: 80,
+        origin: { x: x, y: y },
+        colors: ['#ff1493', '#ff69b4', '#ffd700', '#ffffff'],
+        shapes: ['star', 'circle'],
+        scalar: 1,
+        ticks: 100,
+        zIndex: 99999
+      });
+    }
+
     function filterCategory(category, btnElement) {
       document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
       btnElement.classList.add('active');
@@ -1234,15 +1281,21 @@ function triggerSparkles(event) {
     }
 
     function openModal(imgSrc, title, price, desc) {
+      currentProduct = {
+        title,
+        price,
+        img: imgSrc
+      };
+
       document.getElementById('modalImg').src = imgSrc;
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalPrice').innerText = price.toLocaleString() + ' ₽';
       document.getElementById('modalDesc').innerText = desc;
       
       document.getElementById('modalAddBtn').onclick = function(e) {
-  addToCart(title, price, imgSrc, e);
-  closeModal();
-};
+        addToCart(title, price, imgSrc, e);
+        closeModal();
+      };
 
       document.getElementById('productModal').classList.add('active');
     }
@@ -1250,43 +1303,26 @@ function triggerSparkles(event) {
     function closeModal() {
       document.getElementById('productModal').classList.remove('active');
     }
-function triggerSparkles(event) {
-  if (typeof confetti !== 'function') return;
 
-  // Безопасно получаем координаты клика мышкой
-  const x = (event && event.clientX) ? event.clientX / window.innerWidth : 0.5;
-  const y = (event && event.clientY) ? event.clientY / window.innerHeight : 0.5;
-
-  confetti({
-    particleCount: 40,
-    spread: 80,
-    origin: { x: x, y: y },
-    colors: ['#ff1493', '#ff69b4', '#ffd700', '#ffffff'],
-    shapes: ['star', 'circle'],
-    scalar: 1,
-    ticks: 100,
-    zIndex: 99999 // 
-  });
-}
     function toggleCart() {
       document.getElementById('cartDrawer').classList.toggle('open');
       document.getElementById('cartOverlay').classList.toggle('active');
     }
 
-  function addToCart(title, price, img, event) {
-  if (event) triggerSparkles(event);
+    function addToCart(title, price, img, event) {
+      if (event) triggerSparkles(event);
 
-  const existingItem = cart.find(item => item.title === title);
+      const existingItem = cart.find(item => item.title === title);
 
-  if (existingItem) {
-    existingItem.quantity += 1;
-  } else {
-    cart.push({ title, price, img, quantity: 1 });
-  }
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ title, price, img, quantity: 1 });
+      }
 
-  updateCartDisplay();
-  toggleCart();
-}
+      updateCartDisplay();
+      toggleCart();
+    }
 
     function changeQty(index, delta) {
       cart[index].quantity += delta;
