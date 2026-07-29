@@ -6,16 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>GLAM.ME ✨ | Сервис подбора и заказа аксессуаров Барби</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <style>
-    /* Кастомный курсор для всего сайта (Волшебная палочка) */
-body {
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text y='20' font-size='18'>🪄</text></svg>"), auto;
-}
+ <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap');
 
-/* При наведении на кнопки, ссылки и карточки (Блестки) */
-a, button, .card, .cat-btn, .qty-btn, .close-btn, .checkout-btn {
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text y='20' font-size='18'>✨</text></svg>"), pointer !important;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Кастомный курсор для всего сайта (Волшебная палочка) */
+    body {
+      background: #0d0108;
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text y='20' font-size='18'>🪄</text></svg>"), auto;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* При наведении на кнопки, ссылки и карточки (Блестки) */
+    a, button, .card, .cat-btn, .qty-btn, .close-btn, .checkout-btn, .cart-trigger, .hero-btn {
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text y='20' font-size='18'>✨</text></svg>"), pointer !important;
+    }
+
     /* --- ОБНОВЛЕННЫЙ МОБИЛЬНЫЙ АДАПТИВ (iOS/Android/Telegram) --- */
     @media (max-width: 768px) {
       body {
@@ -130,30 +147,6 @@ a, button, .card, .cat-btn, .qty-btn, .close-btn, .checkout-btn {
       .cart-drawer.open {
         right: 0 !important;
       }
-    }
-
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&display=swap');
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Montserrat', sans-serif;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: #0d0108;
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><text y="20" font-size="20">🪄</text></svg>'), auto;
-      color: #ffffff;
-      overflow-x: hidden;
-    }
-
-    button, a, .card, .cat-btn, .close-btn, .cart-trigger, .hero-btn {
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><text y="20" font-size="20">✨</text></svg>'), pointer !important;
     }
 
     /* Навигация */
@@ -775,9 +768,61 @@ a, button, .card, .cat-btn, .qty-btn, .close-btn, .checkout-btn {
       color: #ff69b4;
       text-decoration: underline;
     }
+
+    /* СТИЛИ ДЛЯ КНОПКИ МЕНЕДЖЕРА И TELEGRAM FALLBACK */
+    .modal-action-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0088cc, #00bfff);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .modal-action-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 18px rgba(0, 191, 255, .45);
+    }
+
+    .tg-fallback {
+      margin-top: 14px;
+      padding: 14px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 20, 147, .2);
+      border-radius: 14px;
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .tg-fallback-title {
+      font-size: 12px;
+      color: #d9b7ca;
+    }
+
+    .copy-username-btn {
+      width: 100%;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      background: #2d2030;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .copy-username-btn:hover {
+      background: #ff1493;
+    }
   </style>
-</head>
-<body>
 
   <header>
     <a href="#" class="logo">glam<span>.me</span> ✨</a>
