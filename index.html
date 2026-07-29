@@ -1068,10 +1068,25 @@ a, button, .card, .cat-btn, .qty-btn, .close-btn, .checkout-btn {
         <div class="price-note">Предварительный расчет</div>
         <div class="modal-price" id="modalPrice">0 ₽</div>
         <p class="modal-desc" id="modalDesc">Описание позиции появится здесь.</p>
-        <button class="add-btn" id="modalAddBtn">Добавить в подборку 📋</button>
-      </div>
-    </div>
-  </div>
+        <button class="add-btn" id="modalAddBtn">
+  Добавить в подборку 📋
+</button>
+
+<button class="modal-action-btn" onclick="sendSingleProductToTg()">
+  💬 Написать менеджеру
+</button>
+
+<div class="tg-fallback">
+  <span class="tg-fallback-title">
+    Не открывается Telegram?
+  </span>
+
+  <button
+    class="copy-username-btn"
+    onclick="copyTgUsername('@kamillameneger', event)">
+    Скопировать @kamillameneger 📋
+  </button>
+</div>
 
   <!-- ОВЕРЛЕЙ И БОКОВАЯ КОРЗИНА -->
   <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
