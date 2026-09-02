@@ -713,23 +713,27 @@
     footer {
       background: #080005;
       border-top: 1px solid rgba(255, 20, 147, 0.25);
-      padding: 50px 20px 40px;
-      text-align: center;
+      padding: 58px 32px 30px;
     }
 
     .footer-content {
-      max-width: 850px;
+      max-width: 1180px;
       margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: minmax(210px, 0.8fr) minmax(360px, 1.45fr) minmax(250px, 0.9fr);
+      align-items: start;
+      gap: 32px;
+    }
+
+    .footer-brand {
+      text-align: left;
     }
 
     .footer-logo {
-      font-size: 22px;
+      font-size: 28px;
       font-weight: 900;
       color: #fff;
+      letter-spacing: -0.04em;
     }
 
     .footer-logo span {
@@ -737,23 +741,30 @@
       text-shadow: 0 0 10px #ff1493;
     }
 
+    .footer-tagline {
+      max-width: 260px;
+      margin-top: 12px;
+      color: #d7c2ce;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
     .legal-disclaimer {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 20, 147, 0.15);
-      padding: 16px 20px;
-      border-radius: 12px;
+      padding: 20px 22px;
+      border-radius: 16px;
       font-size: 12px;
       color: #b3a0ac;
-      line-height: 1.6;
-      text-align: center;
+      line-height: 1.7;
+      text-align: left;
     }
 
     .footer-links {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 5px 0;
+      display: grid;
+      gap: 12px;
+      justify-items: start;
+      padding-top: 2px;
     }
 
     .footer-link {
@@ -761,6 +772,7 @@
       text-decoration: none;
       font-size: 13px;
       font-weight: 700;
+      line-height: 1.45;
       transition: color 0.3s;
     }
 
@@ -769,8 +781,88 @@
     }
 
     .footer-copy {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      width: 100%;
+      margin-top: 4px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       font-size: 12px;
       color: #666;
+    }
+
+    .footer-operator {
+      color: #8b7a84;
+      font-size: 11px;
+      text-align: right;
+    }
+
+    @media (max-width: 900px) {
+      .footer-content {
+        grid-template-columns: minmax(190px, 0.75fr) minmax(330px, 1.25fr);
+      }
+
+      .footer-links {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 22px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        padding: 42px 16px 30px;
+        text-align: center;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .footer-brand,
+      .legal-disclaimer {
+        text-align: center;
+      }
+
+      .footer-logo {
+        font-size: 22px;
+      }
+
+      .footer-tagline {
+        max-width: 320px;
+        margin-top: 8px;
+      }
+
+      .legal-disclaimer {
+        padding: 16px 18px;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        justify-items: initial;
+        gap: 14px 20px;
+        padding-top: 0;
+      }
+
+      .footer-copy {
+        display: block;
+        padding-top: 18px;
+        line-height: 1.7;
+      }
+
+      .footer-operator {
+        display: block;
+        margin-top: 4px;
+        text-align: center;
+      }
     }
 
     .privacy-check {
@@ -1251,6 +1343,9 @@
   <button class="add-btn" onclick="event.stopPropagation(); addToCart('Бейсболка Barbie Two-Tone (Голубо-бежевая)', 1900, 'item18.PNG');">Запросить расчет 📋</button>
 </div>
 
+    </div>
+  </section>
+
  <!-- МОДАЛЬНОЕ ОКНО ПРОСМОТРА -->
   <div class="modal" id="productModal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
@@ -1640,8 +1735,10 @@
   <!-- ПОДВАЛ САЙТА С ЮРИДИЧЕСКИМ ДИСКЛЕЙМЕРОМ -->
   <footer>
     <div class="footer-content">
-      <div class="footer-logo">glamme<span>.shop</span> ✨</div>
-      <p style="font-size: 14px; color: #ffe6f2;">Сервис персонального подбора и заказа брендовых аксессуаров 💖</p>
+      <div class="footer-brand">
+        <div class="footer-logo">glamme<span>.shop</span> ✨</div>
+        <p class="footer-tagline">Сервис персонального подбора и заказа брендовых аксессуаров 💖</p>
+      </div>
       
       <!-- ДИСКЛЕЙМЕР ОТСУТСТВИЯ ПУБЛИЧНОЙ ОФЕРТЫ -->
       <div class="legal-disclaimer">
@@ -1658,9 +1755,9 @@
       </div>
 
       <!-- РЕКВИЗИТЫ И АВТОРСКИЕ ПРАВА -->
-      <div class="footer-copy" style="line-height: 1.6;">
-        © 2026 DIGRIX. Все права защищены.<br>
-        <span style="opacity: 0.8; font-size: 11px;">Самозанятый Закиров Ильгам Радикович</span>
+      <div class="footer-copy">
+        <span>© 2026 DIGRIX. Все права защищены.</span>
+        <span class="footer-operator">Самозанятый Закиров Ильгам Радикович</span>
       </div>
     </div>
   </footer>
