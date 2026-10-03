@@ -1,1786 +1,711 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <link rel="icon" type="image/png" href="favicon.png">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="referrer" content="no-referrer">
-  <title>GLAM.ME ✨ | Сервис подбора и заказа аксессуаров Барби</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ff3fa4">
+  <meta name="description" content="Каталог сумок Barbie от GLAM.ME SHOP. Актуальные модели, цвета и цены с доставкой до России.">
   <link rel="canonical" href="https://glamme.shop/">
-  <script src="privacy-notice.js" defer></script>
- <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  <title>GLAM.ME SHOP — каталог сумок Barbie</title>
+  <style>
+    :root {
+      --ink: #171017;
+      --muted: #786d78;
+      --pink: #ff3fa4;
+      --pink-dark: #dd247f;
+      --pink-soft: #fff0f8;
+      --paper: #fffdfd;
+      --line: #eadfe7;
+      --white: #fff;
+      --shadow: 0 18px 60px rgba(72, 23, 55, .10);
+      --radius: 24px;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* Кастомный курсор для всего сайта (Волшебная палочка) */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      background: #0d0108;
-      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text y='20' font-size='18'>🪄</text></svg>"), auto;
-      color: #ffffff;
-      overflow-x: hidden;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% -10%, rgba(255, 63, 164, .16), transparent 32rem),
+        linear-gradient(180deg, #fff 0, var(--paper) 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    [hidden] { display: none !important; }
 
-    /* При наведении на кнопки, ссылки и карточки (Блестки) */
-    a, button, .card, .cat-btn, .qty-btn, .close-btn, .checkout-btn, .cart-trigger, .hero-btn {
-      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><text y='20' font-size='18'>✨</text></svg>"), pointer !important;
-    }
-
-    /* --- ОБНОВЛЕННЫЙ МОБИЛЬНЫЙ АДАПТИВ (iOS/Android/Telegram) --- */
-    @media (max-width: 768px) {
-      body {
-        overflow-x: hidden;
-      }
-
-      /* Шапка */
-      header {
-        padding: 10px 14px !important;
-      }
-      .logo {
-        font-size: 18px !important;
-      }
-      .cart-trigger {
-        padding: 6px 12px !important;
-        font-size: 12px !important;
-        border-radius: 14px !important;
-      }
-
-      /* Главный экран (Hero) */
-      .hero {
-        padding: 70px 14px 30px !important;
-        min-height: auto !important;
-      }
-      .hero-badge {
-        font-size: 10px !important;
-        padding: 5px 12px !important;
-        margin-bottom: 12px !important;
-      }
-      .hero h1 {
-        font-size: 32px !important;
-        margin-bottom: 10px !important;
-      }
-      .hero p {
-        font-size: 13px !important;
-        line-height: 1.4 !important;
-        margin-bottom: 20px !important;
-      }
-
-      /* Блок 5 шагов (аккуратный компактный скролл) */
-      .steps-container {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        justify-content: flex-start !important;
-        width: 100% !important;
-        padding: 4px 0 10px !important;
-        gap: 8px !important;
-        -webkit-overflow-scrolling: touch;
-      }
-      .steps-container::-webkit-scrollbar {
-        display: none;
-      }
-      .step-item {
-        flex: 0 0 auto !important;
-        font-size: 11px !important;
-        padding: 6px 10px !important;
-        white-space: nowrap !important;
-      }
-      .step-arrow {
-        font-size: 10px !important;
-      }
-
-      .hero-btn {
-        padding: 12px 28px !important;
-        font-size: 12px !important;
-        width: 100% !important;
-        max-width: 280px !important;
-      }
-
-      /* Категории (строго в 1 строку со скроллом) */
-      .shopping-world {
-        padding: 30px 14px 60px !important;
-      }
-      .categories {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        justify-content: flex-start !important;
-        padding-bottom: 8px !important;
-        gap: 8px !important;
-        margin-bottom: 25px !important;
-        -webkit-overflow-scrolling: touch;
-      }
-      .categories::-webkit-scrollbar {
-        display: none;
-      }
-      .cat-btn {
-        padding: 8px 16px !important;
-        font-size: 12px !important;
-        flex: 0 0 auto !important;
-        white-space: nowrap !important;
-      }
-
-      /* Сетка карточек */
-      .grid {
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
-      }
-      .card {
-        padding: 14px !important;
-      }
-      .img-container {
-        height: 220px !important;
-      }
-
-      /* Корзина / Подборка */
-      .cart-drawer {
-        width: 100% !important;
-        right: -100% !important;
-      }
-      .cart-drawer.open {
-        right: 0 !important;
-      }
-
-      .modal {
-        align-items: flex-start;
-        overflow-y: auto;
-        padding: 12px;
-      }
-
-      .modal-content {
-        margin: auto 0;
-        border-radius: 20px;
-      }
-
-      .modal-img-box,
-      .modal-info {
-        flex-basis: 100%;
-      }
-
-      .modal-img-box {
-        min-height: 250px;
-        padding: 18px;
-      }
-
-      .modal-img {
-        max-height: 250px;
-      }
-
-      .modal-info {
-        padding: 26px 18px;
-      }
-    }
-
-    /* Навигация */
-    header {
-      position: fixed;
+    .site-header {
+      position: sticky;
       top: 0;
-      width: 100%;
-      padding: 18px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(13, 1, 8, 0.85);
-      backdrop-filter: blur(15px);
-      z-index: 1000;
-      border-bottom: 1px solid rgba(255, 20, 147, 0.25);
+      z-index: 30;
+      border-bottom: 1px solid rgba(234, 223, 231, .85);
+      background: rgba(255, 253, 253, .88);
+      backdrop-filter: blur(18px);
     }
-
-    .logo {
-      font-size: 24px;
-      font-weight: 900;
-      text-transform: lowercase;
-      color: #ffffff;
-      text-decoration: none;
-    }
-
-    .logo span {
-      color: #ff1493;
-      text-shadow: 0 0 12px #ff1493;
-    }
-
-    .cart-trigger {
-      background: linear-gradient(135deg, #ff1493, #ff69b4);
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
-      transition: transform 0.2s;
-    }
-
-    .cart-trigger:hover {
-      transform: scale(1.05);
-    }
-
-    .cart-badge {
-      background: #fff;
-      color: #ff1493;
-      border-radius: 50%;
-      padding: 2px 7px;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    /* Главный Экран */
-    .hero {
-      min-height: 100vh;
-      background: radial-gradient(circle at center, #ff1493 0%, #3a0022 65%, #0d0108 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 100px 20px 60px;
-    }
-
-    .hero-badge {
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(8px);
-      padding: 8px 20px;
-      border-radius: 30px;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
-    }
-
-    .hero h1 {
-      font-size: 56px;
-      font-weight: 900;
-      font-style: italic;
-      text-transform: uppercase;
-      line-height: 1.1;
-      margin-bottom: 15px;
-      text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: #ffe6f2;
-      max-width: 600px;
-      margin-bottom: 40px;
-    }
-
-    /* Блок Путь клиента (5 шагов) */
-    .steps-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 40px;
-      max-width: 950px;
-      width: 100%;
-    }
-
-    .step-item {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      padding: 12px 18px;
-      border-radius: 16px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
-      justify-content: center;
-    }
-
-    .step-arrow {
-      color: #ff69b4;
-      font-weight: 900;
-    }
-
-    .hero-btn {
-      background: #ffffff;
-      color: #ff1493;
-      padding: 18px 42px;
-      border-radius: 30px;
-      font-weight: 900;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-
-    .hero-btn:hover {
-      background: #ff1493;
-      color: #ffffff;
-      box-shadow: 0 0 35px #ff1493;
-      transform: scale(1.05);
-    }
-
-    /* Секция Каталога */
-    .shopping-world {
-      min-height: 100vh;
-      padding: 100px 20px 80px;
-      background: linear-gradient(180deg, #0d0108 0%, #1f0215 50%, #0d0108 100%);
-    }
-
-    .categories {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 50px;
-      flex-wrap: wrap;
-    }
-
-    .cat-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 20, 147, 0.3);
-      color: #fff;
-      padding: 12px 26px;
-      border-radius: 25px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .cat-btn.active, .cat-btn:hover {
-      background: #ff1493;
-      border-color: #ff1493;
-      box-shadow: 0 0 15px rgba(255, 20, 147, 0.6);
-    }
-
-    /* Сетка Товаров */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 340px));
-      justify-content: center;
-      gap: 30px;
-      max-width: 1200px;
+    .header-inner, .shell {
+      width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
     }
-
-    .card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 20, 147, 0.25);
-      border-radius: 20px;
-      padding: 20px;
+    .header-inner {
+      min-height: 72px;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: space-between;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      cursor: pointer;
-      position: relative;
+      gap: 18px;
     }
-
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: #ff1493;
-      box-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
-      background: rgba(255, 20, 147, 0.05);
-    }
-
-    .zoom-hint {
-      position: absolute;
-      top: 30px;
-      right: 30px;
-      background: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      font-size: 11px;
-      padding: 5px 10px;
-      border-radius: 12px;
-      backdrop-filter: blur(4px);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .card:hover .zoom-hint {
-      opacity: 1;
-    }
-
-    .img-container {
-      width: 100%;
-      height: 280px;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #1a0512;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
-    }
-
-    .product-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 10px;
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover .product-img {
-      transform: scale(1.05);
-    }
-
-    .product-title {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
-
-    .price-note {
-      font-size: 11px;
-      color: #a87d95;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-    }
-
-    .price {
-      font-size: 22px;
-      font-weight: 900;
-      color: #ff69b4;
-      margin-bottom: 18px;
-    }
-
-    .add-btn {
-      width: 100%;
-      background: linear-gradient(135deg, #ff1493, #ff69b4);
-      color: #fff;
-      border: none;
-      padding: 14px;
-      border-radius: 14px;
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
-    }
-
-    .add-btn:hover {
-      box-shadow: 0 0 20px #ff1493;
-      transform: scale(1.02);
-    }
-
-    /* МОДАЛЬНОЕ ОКНО ПРОСМОТРА */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(13, 1, 8, 0.9);
-      backdrop-filter: blur(15px);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .modal.active {
-      display: flex;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .modal-content {
-      background: #180312;
-      border: 1px solid #ff1493;
-      border-radius: 24px;
-      max-width: 800px;
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      overflow: hidden;
-      box-shadow: 0 0 50px rgba(255, 20, 147, 0.5);
-      position: relative;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 28px;
-      color: #fff;
-      cursor: pointer;
-      z-index: 10;
-    }
-
-    .modal-img-box {
-      flex: 1 1 350px;
-      background: #0d0108;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
-    }
-
-    .modal-img {
-      max-width: 100%;
-      max-height: 400px;
-      object-fit: contain;
-    }
-
-    .modal-info {
-      flex: 1 1 350px;
-      padding: 40px 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .modal-title {
-      font-size: 26px;
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-
-    .modal-price {
-      font-size: 24px;
-      color: #ff69b4;
-      font-weight: 900;
-      margin-bottom: 20px;
-    }
-
-    .modal-desc {
-      color: #ffe6f2;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
-
-    /* БОКОВАЯ КОРЗИНА / ПОДБОРКА */
-    .cart-drawer {
-      position: fixed;
-      top: 0;
-      right: -420px;
-      width: 100%;
-      max-width: 400px;
-      height: 100%;
-      background: #150210;
-      border-left: 1px solid #ff1493;
-      box-shadow: -10px 0 30px rgba(0,0,0,0.8);
-      z-index: 2500;
-      transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      display: flex;
-      flex-direction: column;
-      padding: 25px;
-    }
-
-    .cart-drawer.open {
-      right: 0;
-    }
-
-    .cart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid rgba(255, 20, 147, 0.2);
-    }
-
-    .cart-title {
-      font-size: 20px;
-      font-weight: 900;
-    }
-
-    .cart-items {
-      flex: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 10px;
-      border-radius: 14px;
-    }
-
-    .cart-item-img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      background: #0d0108;
-      border-radius: 8px;
-    }
-
-    .cart-item-info {
-      flex: 1;
-    }
-
-    .cart-item-title {
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .cart-item-price {
-      font-size: 13px;
-      color: #ff69b4;
-      font-weight: 800;
-    }
-
-    .qty-btn {
-      background: #ff1493;
-      border: none;
-      color: #fff;
-      width: 24px;
-      height: 24px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 900;
-    }
-
-    .cart-footer {
-      margin-top: 20px;
-      padding-top: 15px;
-      border-top: 1px solid rgba(255, 20, 147, 0.2);
-    }
-
-    .total-price {
-      display: flex;
-      justify-content: space-between;
-      font-size: 18px;
-      font-weight: 900;
-      margin-bottom: 15px;
-    }
-
-    .checkout-btn {
-      width: 100%;
-      background: linear-gradient(135deg, #0088cc, #00bfff);
-      color: #fff;
-      border: none;
-      padding: 16px;
-      border-radius: 16px;
-      font-size: 14px;
-      font-weight: 900;
-      text-transform: uppercase;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .brand {
+      display: inline-flex;
+      align-items: baseline;
       gap: 8px;
-      box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
-      transition: transform 0.2s;
+      text-decoration: none;
+      font-weight: 950;
+      letter-spacing: -.06em;
+      font-size: clamp(1.25rem, 3vw, 1.65rem);
     }
-
-    .checkout-btn:hover {
-      transform: scale(1.02);
+    .brand-dot { color: var(--pink); }
+    .brand small {
+      letter-spacing: .2em;
+      font-size: .56rem;
+      text-transform: uppercase;
+      color: var(--muted);
     }
-
-    .cart-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      z-index: 2400;
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .manager-link, .cart-button {
+      min-height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      padding: 0 17px;
+      text-decoration: none;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: transform .2s ease, border-color .2s ease;
     }
-
-    .cart-overlay.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* ПОДВАЛ (FOOTER) И ЮРИДИЧЕСКИЙ ДИСКЛЕЙМЕР */
-    footer {
-      background: #080005;
-      border-top: 1px solid rgba(255, 20, 147, 0.25);
-      padding: 58px 32px 30px;
-    }
-
-    .footer-content {
-      max-width: 1180px;
-      margin: 0 auto;
+    .manager-link:hover, .cart-button:hover { transform: translateY(-2px); border-color: var(--pink); }
+    .cart-button { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .cart-count {
       display: grid;
-      grid-template-columns: minmax(210px, 0.8fr) minmax(360px, 1.45fr) minmax(250px, 0.9fr);
-      align-items: start;
-      gap: 32px;
+      place-items: center;
+      min-width: 23px;
+      height: 23px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: var(--pink);
+      font-size: .75rem;
     }
 
-    .footer-brand {
-      text-align: left;
-    }
-
-    .footer-logo {
-      font-size: 28px;
+    .hero { padding: clamp(54px, 9vw, 108px) 0 44px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.25fr .75fr; align-items: end; gap: 42px; }
+    .eyebrow {
+      margin: 0 0 16px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .78rem;
       font-weight: 900;
-      color: #fff;
-      letter-spacing: -0.04em;
+      color: var(--pink-dark);
     }
-
-    .footer-logo span {
-      color: #ff1493;
-      text-shadow: 0 0 10px #ff1493;
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(3.4rem, 9vw, 7.6rem);
+      line-height: .88;
+      letter-spacing: -.075em;
+      font-weight: 950;
     }
-
-    .footer-tagline {
-      max-width: 260px;
-      margin-top: 12px;
-      color: #d7c2ce;
-      font-size: 14px;
+    .hero-highlight {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--pink);
+      text-stroke: 2px var(--pink);
+    }
+    .hero-copy {
+      margin: 24px 0 0;
+      max-width: 650px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
       line-height: 1.6;
     }
-
-    .legal-disclaimer {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 20, 147, 0.15);
-      padding: 20px 22px;
-      border-radius: 16px;
-      font-size: 12px;
-      color: #b3a0ac;
-      line-height: 1.7;
-      text-align: left;
-    }
-
-    .footer-links {
-      display: grid;
-      gap: 12px;
-      justify-items: start;
-      padding-top: 2px;
-    }
-
-    .footer-link {
-      color: #ffe6f2;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 1.45;
-      transition: color 0.3s;
-    }
-
-    .footer-link:hover {
-      color: #ff1493;
-    }
-
-    .footer-copy {
-      grid-column: 1 / -1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      width: 100%;
-      margin-top: 4px;
-      padding-top: 22px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 12px;
-      color: #666;
-    }
-
-    .footer-operator {
-      color: #8b7a84;
-      font-size: 11px;
-      text-align: right;
-    }
-
-    @media (max-width: 900px) {
-      .footer-content {
-        grid-template-columns: minmax(190px, 0.75fr) minmax(330px, 1.25fr);
-      }
-
-      .footer-links {
-        grid-column: 1 / -1;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px 22px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      footer {
-        padding: 42px 16px 30px;
-        text-align: center;
-      }
-
-      .footer-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-      }
-
-      .footer-brand,
-      .legal-disclaimer {
-        text-align: center;
-      }
-
-      .footer-logo {
-        font-size: 22px;
-      }
-
-      .footer-tagline {
-        max-width: 320px;
-        margin-top: 8px;
-      }
-
-      .legal-disclaimer {
-        padding: 16px 18px;
-      }
-
-      .footer-links {
-        display: flex;
-        justify-content: center;
-        justify-items: initial;
-        gap: 14px 20px;
-        padding-top: 0;
-      }
-
-      .footer-copy {
-        display: block;
-        padding-top: 18px;
-        line-height: 1.7;
-      }
-
-      .footer-operator {
-        display: block;
-        margin-top: 4px;
-        text-align: center;
-      }
-    }
-
-    .privacy-check {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin: 15px 0;
-      font-size: 11px;
-      color: #ffe6f2;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .privacy-check input[type="checkbox"] {
-      accent-color: #ff1493;
-      width: 15px;
-      height: 15px;
-      margin-top: 2px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .privacy-check a {
-      color: #ff69b4;
-      text-decoration: underline;
-    }
-
-    /* СТИЛИ ДЛЯ КНОПКИ МЕНЕДЖЕРА И TELEGRAM FALLBACK */
-    .modal-action-btn {
-      width: 100%;
-      margin-top: 12px;
-      padding: 14px;
-      border: none;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #0088cc, #00bfff);
+    .hero-stats {
+      padding: 28px;
+      border-radius: 30px;
       color: #fff;
-      font-size: 13px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: .25s;
+      background: linear-gradient(145deg, #20141e, #0e0b0e);
+      box-shadow: var(--shadow);
+      transform: rotate(2deg);
     }
+    .hero-stats strong { display: block; font-size: clamp(3.4rem, 6vw, 5rem); line-height: 1; letter-spacing: -.07em; }
+    .hero-stats span { display: block; margin-top: 8px; color: #f3d9e8; line-height: 1.5; }
+    .hero-stats .price-note { margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.16); color: #fff; font-weight: 800; }
 
-    .modal-action-btn:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 18px rgba(0, 191, 255, .45);
-    }
-
-    .tg-fallback {
-      margin-top: 14px;
-      padding: 14px;
-      background: rgba(255, 255, 255, .05);
-      border: 1px solid rgba(255, 20, 147, .2);
-      border-radius: 14px;
-      backdrop-filter: blur(8px);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .tg-fallback-title {
-      font-size: 12px;
-      color: #d9b7ca;
-    }
-
-    .copy-username-btn {
-      width: 100%;
-      border: none;
-      padding: 12px;
-      border-radius: 12px;
-      background: #2d2030;
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      transition: .25s;
-    }
-
-    .copy-username-btn:hover {
-      background: #ff1493;
-    }
-
-    .privacy-check input[type="checkbox"]:focus-visible {
-      outline: 2px solid #ffffff;
-      outline-offset: 3px;
-    }
-
-    .consent-error {
-      display: none;
-      margin: -7px 0 12px;
-      color: #ffb3d7;
-      font-size: 11px;
-      line-height: 1.45;
-    }
-
-    .consent-error.visible {
-      display: block;
-    }
-
-    .sparkle-particle {
-      position: fixed;
-      z-index: 99999;
-      pointer-events: none;
-      color: var(--sparkle-color, #ff69b4);
-      font-size: var(--sparkle-size, 14px);
-      line-height: 1;
-      animation: sparkleBurst 720ms ease-out forwards;
-    }
-
-    @keyframes sparkleBurst {
-      from {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(0.7) rotate(0deg);
-      }
-      to {
-        opacity: 0;
-        transform: translate(calc(-50% + var(--sparkle-x)), calc(-50% + var(--sparkle-y))) scale(1.4) rotate(140deg);
-      }
-    }
-
-    .cookie-note {
-      position: fixed;
-      right: 18px;
-      bottom: max(18px, env(safe-area-inset-bottom));
-      z-index: 1900;
+    .catalog-toolbar {
+      position: relative;
+      z-index: 2;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: minmax(220px, 1fr) auto;
       gap: 14px;
       align-items: center;
-      width: min(500px, calc(100% - 36px));
-      padding: 15px 16px;
-      border: 1px solid rgba(255, 105, 180, 0.3);
+      padding: 16px;
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 12px 40px rgba(72, 23, 55, .06);
+      backdrop-filter: blur(16px);
+    }
+    .search-wrap { position: relative; }
+    .search-wrap::before { content: "⌕"; position: absolute; left: 17px; top: 50%; transform: translateY(-54%); font-size: 1.5rem; color: var(--muted); }
+    #searchInput {
+      width: 100%;
+      height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fff;
+      padding: 0 16px 0 46px;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    #searchInput:focus { border-color: var(--pink); box-shadow: 0 0 0 4px rgba(255,63,164,.12); }
+    .result-count { white-space: nowrap; color: var(--muted); font-weight: 800; padding: 0 8px; }
+    .filters {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      padding: 4px 1px 20px;
+      margin-bottom: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--pink) transparent;
+    }
+    .filter {
+      flex: 0 0 auto;
+      min-height: 40px;
+      padding: 0 17px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      font-weight: 800;
+      color: var(--muted);
+    }
+    .filter:hover, .filter.active { color: #fff; border-color: var(--ink); background: var(--ink); }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      padding: 12px 0 90px;
+    }
+    .product-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: 0 10px 32px rgba(72, 23, 55, .055);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .product-card:hover { transform: translateY(-6px); border-color: #e7c3d7; box-shadow: var(--shadow); }
+    .product-media {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: linear-gradient(145deg, #fff6fb, #f8eff5);
+    }
+    .product-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .product-card:hover .product-media img { transform: scale(1.035); }
+    .collection-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      padding: 8px 11px;
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: 999px;
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(12px);
+      font-size: .7rem;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+    .product-body { padding: 19px; }
+    .product-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .product-title { margin: 0; font-size: 1.12rem; letter-spacing: -.025em; line-height: 1.25; }
+    .product-price { white-space: nowrap; font-size: 1.15rem; font-weight: 950; }
+    .product-meta { min-height: 42px; margin: 10px 0 16px; color: var(--muted); font-size: .88rem; line-height: 1.5; }
+    .product-meta span + span::before { content: " · "; }
+    .card-actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+    .primary, .secondary, .icon-button {
+      border: 0;
+      border-radius: 14px;
+      font-weight: 900;
+      transition: transform .18s ease, background .18s ease;
+    }
+    .primary { min-height: 46px; padding: 0 16px; color: #fff; background: var(--pink); }
+    .primary:hover { background: var(--pink-dark); transform: translateY(-2px); }
+    .secondary { min-height: 46px; padding: 0 16px; color: var(--ink); background: var(--pink-soft); }
+    .secondary:hover { background: #ffe0f1; }
+    .icon-button { width: 46px; height: 46px; font-size: 1.1rem; background: var(--ink); color: #fff; }
+    .empty-state { grid-column: 1 / -1; padding: 70px 20px; text-align: center; color: var(--muted); }
+    .empty-state strong { display: block; margin-bottom: 8px; color: var(--ink); font-size: 1.4rem; }
+
+    .service-strip { margin-bottom: 90px; padding: 28px; border-radius: 28px; background: var(--pink-soft); display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .service-item { padding: 8px; }
+    .service-item strong { display: block; margin-bottom: 7px; font-size: 1.05rem; }
+    .service-item span { color: var(--muted); line-height: 1.55; }
+
+    footer { border-top: 1px solid var(--line); background: #fff; }
+    .footer-inner { padding: 36px 0 46px; display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; }
+    .footer-copy { color: var(--muted); font-size: .88rem; line-height: 1.6; max-width: 560px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 14px 20px; font-size: .88rem; font-weight: 800; }
+
+    .drawer-backdrop, .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(16, 10, 15, .55);
+      backdrop-filter: blur(7px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .drawer-backdrop.open, .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+    .drawer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(460px, 100%);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      transform: translateX(100%);
+      transition: transform .3s ease;
+    }
+    .drawer-backdrop.open .drawer { transform: translateX(0); }
+    .drawer-head { padding: 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
+    .drawer-head h2 { margin: 0; font-size: 1.35rem; }
+    .close-button { width: 42px; height: 42px; border: 0; border-radius: 50%; background: var(--pink-soft); font-size: 1.5rem; }
+    .cart-items { flex: 1; overflow: auto; padding: 18px 24px; }
+    .cart-empty { padding: 50px 10px; color: var(--muted); text-align: center; }
+    .cart-item { display: grid; grid-template-columns: 74px 1fr auto; gap: 13px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .cart-item img { width: 74px; height: 74px; object-fit: cover; border-radius: 14px; background: var(--pink-soft); }
+    .cart-item strong { display: block; margin-bottom: 5px; font-size: .92rem; }
+    .cart-item span { color: var(--muted); font-size: .86rem; }
+    .remove-button { border: 0; background: transparent; color: var(--muted); font-size: 1.2rem; }
+    .drawer-foot { padding: 22px 24px 26px; border-top: 1px solid var(--line); background: #fff; }
+    .promo-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-bottom: 15px; }
+    .promo-row input { min-width: 0; height: 44px; border: 1px solid var(--line); border-radius: 12px; padding: 0 13px; text-transform: uppercase; }
+    .promo-message { min-height: 20px; margin: -8px 0 10px; color: var(--pink-dark); font-size: .8rem; font-weight: 800; }
+    .total-line { display: flex; justify-content: space-between; align-items: baseline; margin: 12px 0 17px; font-weight: 900; }
+    .total-line strong { font-size: 1.45rem; }
+    .checkout-button { width: 100%; min-height: 52px; }
+    .small-note { margin: 11px 0 0; color: var(--muted); text-align: center; font-size: .78rem; line-height: 1.45; }
+
+    .modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(880px, calc(100% - 28px));
+      max-height: calc(100vh - 34px);
+      overflow: auto;
+      border-radius: 28px;
+      background: #fff;
+      transform: translate(-50%, -46%) scale(.97);
+      transition: transform .25s ease;
+    }
+    .modal-backdrop.open .modal { transform: translate(-50%, -50%) scale(1); }
+    .modal-close { position: absolute; top: 16px; right: 16px; z-index: 2; }
+    .modal-grid { display: grid; grid-template-columns: 1.05fr .95fr; }
+    .modal-image-wrap { min-height: 500px; background: var(--pink-soft); }
+    .modal-image-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-content { padding: 52px 36px 38px; display: flex; flex-direction: column; justify-content: center; }
+    .modal-content h2 { margin: 6px 0 12px; font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1; letter-spacing: -.055em; }
+    .modal-price { margin: 0 0 18px; font-size: 1.55rem; font-weight: 950; }
+    .modal-description { color: var(--muted); line-height: 1.65; }
+    .modal-facts { display: grid; gap: 9px; margin: 19px 0 25px; padding: 17px; border-radius: 16px; background: var(--pink-soft); font-size: .9rem; }
+
+    .cookie-notice {
+      position: fixed;
+      z-index: 100;
+      left: 20px;
+      bottom: 20px;
+      width: min(520px, calc(100% - 40px));
+      padding: 18px;
+      border: 1px solid var(--line);
       border-radius: 20px;
-      background: rgba(255, 247, 251, 0.97);
-      box-shadow: 0 14px 44px rgba(34, 5, 24, 0.28);
-      color: #3a172b;
+      background: rgba(255,255,255,.97);
+      box-shadow: 0 20px 70px rgba(32, 10, 27, .22);
       backdrop-filter: blur(14px);
     }
+    .cookie-notice p { margin: 0 0 13px; color: var(--muted); font-size: .87rem; line-height: 1.55; }
+    .cookie-notice strong { color: var(--ink); }
+    .cookie-actions { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .cookie-actions a { color: var(--pink-dark); font-size: .82rem; font-weight: 800; }
+    .cookie-actions button { min-height: 40px; padding: 0 16px; }
 
-    .cookie-note[hidden] {
-      display: none;
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-stats { max-width: 480px; transform: none; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .service-strip { grid-template-columns: 1fr; }
+      .modal-grid { grid-template-columns: 1fr; }
+      .modal-image-wrap { min-height: 360px; max-height: 48vh; }
     }
-
-    .cookie-note__text {
-      font-size: 12px;
-      line-height: 1.5;
+    @media (max-width: 620px) {
+      .header-inner, .shell { width: min(100% - 22px, 1180px); }
+      .header-inner { min-height: 64px; }
+      .manager-link { display: none; }
+      .cart-button { min-height: 40px; padding: 0 13px; }
+      .hero { padding-top: 46px; }
+      h1 { font-size: clamp(3.2rem, 18vw, 5rem); }
+      .catalog-toolbar { grid-template-columns: 1fr; }
+      .result-count { padding: 0 4px 3px; }
+      .product-grid { grid-template-columns: 1fr; gap: 16px; }
+      .footer-inner { flex-direction: column; }
+      .modal-content { padding: 34px 22px 28px; }
+      .modal-image-wrap { min-height: 320px; }
+      .cookie-notice { left: 11px; bottom: 11px; width: calc(100% - 22px); }
+      .cookie-actions { align-items: flex-start; }
     }
-
-    .cookie-note__text strong {
-      display: block;
-      margin-bottom: 2px;
-      color: #23101c;
-      font-size: 13px;
-    }
-
-    .cookie-note__text a {
-      color: #b20b68;
-      text-underline-offset: 2px;
-    }
-
-    .cookie-note__button {
-      min-height: 40px;
-      padding: 10px 17px;
-      border: 0;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ff4fa3, #ff86bd);
-      color: #ffffff;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 5px 14px rgba(255, 20, 147, 0.18);
-    }
-
-    .cookie-note__button:focus-visible {
-      outline: 2px solid #3a172b;
-      outline-offset: 3px;
-    }
-
-    @media (max-width: 560px) {
-      .cookie-note {
-        right: 12px;
-        bottom: max(12px, env(safe-area-inset-bottom));
-        width: calc(100% - 24px);
-        grid-template-columns: 1fr;
-        gap: 10px;
-        padding: 14px;
-        border-radius: 18px;
-      }
-
-      .cookie-note__button {
-        width: 100%;
-      }
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      .sparkle-particle {
-        display: none;
-      }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <a href="#" class="logo">glam<span>.me</span> ✨</a>
-    <div class="cart-trigger" onclick="toggleCart()">
-      📋 Моя подборка <span class="cart-badge" id="cartCount">0</span>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="GLAM.ME SHOP — на главную">GLAM<span class="brand-dot">.</span>ME <small>shop</small></a>
+      <div class="header-actions">
+        <a class="manager-link" href="https://t.me/glammegirls" target="_blank" rel="noopener">Telegram</a>
+        <button class="cart-button" type="button" id="cartOpen" aria-label="Открыть подборку">
+          Подборка <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-badge">Сервис подбора и заказа аксессуаров</div>
-    <h1>время сиять</h1>
-    <p>Персональный подбор аксессуаров и одежды из эксклюзивной серии Barbie для твоего самого яркого образа.</p>
-
-    <a href="#catalog" class="hero-btn">Подобрать модель 🛍️</a>
-  </section>
-
-  <section class="shopping-world" id="catalog">
-   
-    <div class="categories">
-      <button class="cat-btn active" onclick="filterCategory('all', this)">Всё сразу ✨</button>
-      <button class="cat-btn" onclick="filterCategory('bags', this)">Сумки 👜</button>
-      <button class="cat-btn" onclick="filterCategory('clothing', this)">Одежда 👗</button>
-      <button class="cat-btn" onclick="filterCategory('accessories', this)">Аксессуары 👠</button>
-    </div>
-
-    <div class="grid">
-      <!-- ТОВАР 1 -->
-      <div class="card" data-category="bags" onclick="openModal('./bag1.PNG', 'Розовая сумка Barbie', 5300, 'Фирменная розовая сумочка из эксклюзивной коллекции Barbie.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag1.PNG" class="product-img" alt="Розовая сумка Barbie">
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <p class="eyebrow">Новая коллекция · Barbie bags</p>
+          <h1>Выбери свою <span class="hero-highlight">Barbie</span></h1>
+          <p class="hero-copy">Собрали актуальный каталог GLAM.ME SHOP: все модели, оттенки и цены — в одной аккуратной витрине.</p>
         </div>
-        <div class="product-title">Розовая сумка Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Розовая сумка Barbie', 5300, './bag1.PNG');">Запросить расчет 📋</button>
+        <aside class="hero-stats" aria-label="Информация о каталоге">
+          <strong>39</strong>
+          <span>моделей и оттенков в актуальном каталоге</span>
+          <span class="price-note">Цены указаны с учётом доставки до РФ</span>
+        </aside>
       </div>
+    </section>
 
-      <!-- ТОВАР 2 -->
-      <div class="card" data-category="bags" onclick="openModal('./bag2.PNG', 'Голубая сумка Barbie', 5300, 'Нежно-голубая модель для особенных образов.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag2.PNG" class="product-img" alt="Голубая сумка Barbie">
-        </div>
-        <div class="product-title">Голубая сумка Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Голубая сумка Barbie', 5300, './bag2.PNG');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 3 -->
-      <div class="card" data-category="bags" onclick="openModal('./bag3.PNG', 'Черная сумка Barbie', 5300, 'Классическая черная сумочка с яркими акцентами.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag3.PNG" class="product-img" alt="Черная сумка Barbie">
-        </div>
-        <div class="product-title">Черная сумка Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Черная сумка Barbie', 5300, './bag3.PNG');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 4 -->
-      <div class="card" data-category="clothing" onclick="openModal('./dress1.PNG', 'Комплект теннисной формы Barbie', 6500, 'Стильный спортивный комплект из теннисной серии Barbie.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./dress1.PNG" class="product-img" alt="Комплект теннисной формы Barbie">
-        </div>
-        <div class="product-title">Комплект теннисной формы Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">6 500 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Комплект теннисной формы Barbie (Розовая)', 6500, './dress1.PNG');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 5 -->
-      <div class="card" data-category="clothing" onclick="openModal('./dress2.PNG', 'Комплект теннисной формы Barbie', 6500, 'Стильный спортивный комплект из теннисной серии Barbie.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./dress2.PNG" class="product-img" alt="Комплект теннисной формы Barbie">
-        </div>
-        <div class="product-title">Комплект теннисной формы Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">4 100 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Комплект теннисной формы Barbie (Белая)', 6500, './dress2.PNG');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 6 -->
-      <div class="card" data-category="clothing" onclick="openModal('./dress3.PNG', 'Комплект теннисной формы Barbie', 5100, 'Стильный спортивный комплект из теннисной серии Barbie.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./dress3.PNG" class="product-img" alt="Комплект теннисной формы Barbie">
-        </div>
-        <div class="product-title">Комплект теннисной формы Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">4 100 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Комплект теннисной формы Barbie (Черная)', 5100, './dress3.PNG');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 7 -->
-      <div class="card" data-category="bags" onclick="openModal('./bag4.jpg', 'Красная сумка-хобо Barbie', 5300, 'Яркая красная сумка-хобо Barbie в стильный белый горошек.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag4.jpg" class="product-img" alt="Красная сумка-хобо Barbie">
-        </div>
-        <div class="product-title">Красная сумка-хобо Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 100 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Красная сумка-хобо Barbie', 5300, './bag4.jpg');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 8 -->
-      <div class="card" data-category="bags" onclick="openModal('./bag5.jpg', 'Розовая сумка-хобо Barbie', 5300, 'Элегантная розовая сумка-хобо Barbie в романтичный белый горошек.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag5.jpg" class="product-img" alt="Розовая сумка-хобо Barbie">
-        </div>
-        <div class="product-title">Розовая сумка-хобо Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 100 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Розовая сумка-хобо Barbie', 5300, './bag5.jpg');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 9 -->
-      <div class="card" data-category="bags" onclick="openModal('./bag6.jpg', 'Бежевая сумка-хобо Barbie', 5300, 'Утонченная бежевая сумка-хобо Barbie в классический черный горошек.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag6.jpg" class="product-img" alt="Бежевая сумка-хобо Barbie">
-        </div>
-        <div class="product-title">Бежевая сумка-хобо Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 100 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Бежевая сумка-хобо Barbie', 5300, './bag6.jpg');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 10 -->
-      <div class="card" data-category="bags" onclick="openModal('./bag7.jpg', 'Голубая джинсовая сумка-боулер Barbie', 5300, 'Трендовая голубая джинсовая сумка-боулер Barbie с мини-чехлом.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag7.jpg" class="product-img" alt="Голубая джинсовая сумка-боулер Barbie">
-        </div>
-        <div class="product-title">Голубая джинсовая сумка-боулер Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Голубая джинсовая сумка-боулер Barbie', 5300, './bag7.jpg');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 11 -->
-      <div class="card" data-category="bags" onclick="openModal('./bag8.jpg', 'Джинсовая сумка-боулер Barbie', 5300, 'Эффектная джинсовая сумка-боулер Barbie с бежевыми ручками.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag8.jpg" class="product-img" alt="Джинсовая сумка-боулер Barbie">
-        </div>
-        <div class="product-title">Джинсовая сумка-боулер Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Джинсовая сумка-боулер Barbie', 5300, './bag8.jpg');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 12 -->
-      <div class="card" data-category="accessories" onclick="openModal('./bag9.jpg', 'Розовые атласные туфли Barbie', 12000, 'Роскошные розовые атласные туфли Barbie со скульптурным каблуком-цветком.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag9.jpg" class="product-img" alt="Розовые атласные туфли Barbie">
-        </div>
-        <div class="product-title">Розовые атласные туфли Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">12 200 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Розовые атласные туфли Barbie', 12000, './bag9.jpg');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 13 -->
-      <div class="card" data-category="bags" onclick="openModal('./bag10.jpg', 'Темная замшевая сумка-боулер Barbie', 5300, 'Глубокая темная замшевая сумка-боулер Barbie с брелоками.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag10.jpg" class="product-img" alt="Темная замшевая сумка-боулер Barbie">
-        </div>
-        <div class="product-title">Темная замшевая сумка-боулер Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 100 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Темная замшевая сумка-боулер Barbie', 5300, './bag10.jpg');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ТОВАР 14 -->
-      <div class="card" data-category="bags" onclick="openModal('./bag11.jpg', 'Черная глянцевая сумка-тоут Barbie', 5300, 'Вместительная и дерзкая черная глянцевая сумка-тоут Barbie.')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag11.jpg" class="product-img" alt="Черная глянцевая сумка-тоут Barbie">
-        </div>
-        <div class="product-title">Черная глянцевая сумка-тоут Barbie</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 100 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Черная глянцевая сумка-тоут Barbie', 5300, './bag11.jpg');">Запросить расчет 📋</button>
-      </div>
-
-      <!-- ШОКОЛАДНАЯ СУМКА-БОУЛЕР -->
-      <div class="card" data-category="bags" onclick="openModal('./bag12.webp', 'Шоколадная сумка-боулер Barbie Varsity', 5300, 'Шоколадная сумка-боулер Barbie с винтажным силуэтом, золотистой фурнитурой и акцентным брелоком. Компактную модель удобно носить в руке или на плече.\n\nПараметры:\n• Материал: Гладкая экокожа\n• Застежка: Молния\n• Комплектация: Съёмный плечевой ремень и декоративный брелок\n• Цвет: Шоколадный / Золотистая фурнитура')">
-        <span class="zoom-hint">🔍 Подробнее</span>
-        <div class="img-container">
-          <img src="./bag12.webp" class="product-img" alt="Шоколадная сумка-боулер Barbie Varsity">
-        </div>
-        <div class="product-title">Шоколадная сумка-боулер Barbie Varsity</div>
-        <div class="price-note">Ориентировочная стоимость</div>
-        <div class="price">5 300 ₽</div>
-        <button class="add-btn" onclick="event.stopPropagation(); addToCart('Шоколадная сумка-боулер Barbie Varsity', 5300, './bag12.webp');">Запросить расчет 📋</button>
-      </div>
-
-  <!-- item12.PNG -->
-<div class="card" data-category="accessories" onclick="openModal('item12.PNG', 'Термокружка-тамблер Barbie с ручкой и трубочкой (Розовая)', 1700, 'Стильный термостакан объемом 1.2 л из нержавеющей стали. Сохраняет температуру горячих и холодных напитков до 12 часов.\n\nПараметры:\n• Объем: 1.2 л (40 oz)\n• Материал: Пищевая нержавеющая сталь 304, BPA-free пластик, силикон\n• Особенности: Подходит для стандартного автомобильного подстаканника, защита от протеканий\n• Цвет: Розовый матовый')">
-  <span class="zoom-hint">🔍 Подробнее</span>
-  <div class="img-container">
-    <img src="item12.PNG" class="product-img" alt="Термокружка-тамблер Barbie">
-  </div>
-  <div class="product-title">Термокружка-тамблер Barbie с ручкой и трубочкой (Розовая)</div>
-  <div class="price-note">Ориентировочная стоимость</div>
-  <div class="price">1 700 ₽</div>
-  <button class="add-btn" onclick="event.stopPropagation(); addToCart('Термокружка-тамблер Barbie с ручкой и трубочкой (Розовая)', 1700, 'item12.PNG');">Запросить расчет 📋</button>
-</div>
-
-<!-- item13.PNG -->
-<div class="card" data-category="shoes" onclick="openModal('item13.PNG', 'Луноходы Moon Boot × Barbie Icon (Розовые)', 17900, 'Легендарные дутики Moon Boot в ярко-розовом исполнении Barbie. Легкая непромокаемая ткань, объёмный силуэт, фирменная шнуровка и нескользящая подошва.\n\nПараметры:\n• Материал верха: Водоотталливающий нейлон, экокожа\n• Подкладка: Мягкий утеплитель (мемори-пена)\n• Подошва: Терморезина (TRP)\n• Цвет: Розовый / Белый')">
-  <span class="zoom-hint">🔍 Подробнее</span>
-  <div class="img-container">
-    <img src="item13.PNG" class="product-img" alt="Луноходы Moon Boot × Barbie Icon">
-  </div>
-  <div class="product-title">Луноходы Moon Boot × Barbie Icon (Розовые)</div>
-  <div class="price-note">Ориентировочная стоимость</div>
-  <div class="price">17 900 ₽</div>
-  <button class="add-btn" onclick="event.stopPropagation(); addToCart('Луноходы Moon Boot × Barbie Icon (Розовые)', 17900, 'item13.PNG');">Запросить расчет 📋</button>
-</div>
-
-<!-- item14.PNG -->
-<div class="card" data-category="shoes" onclick="openModal('item14.PNG', 'Луноходы Moon Boot × Barbie Glimmer (Серебристый глиттер)', 17900, 'Эффектные зимние дутики Moon Boot с сияющим серебряным глиттерным покрытием. Модель оснащена плотной регулируемой шнуровкой.\n\nПараметры:\n• Материал верха: Текстиль с глиттерным напылением, полимер\n• Подошва: Прозрачная терморезина с противоскользящим протектором\n• Особенности: Морозостойкость, влагозащита\n• Цвет: Серебристый / Глиттер')">
-  <span class="zoom-hint">🔍 Подробнее</span>
-  <div class="img-container">
-    <img src="item14.PNG" class="product-img" alt="Луноходы Moon Boot × Barbie Glimmer">
-  </div>
-  <div class="product-title">Луноходы Moon Boot × Barbie Glimmer (Серебристый глиттер)</div>
-  <div class="price-note">Ориентировочная стоимость</div>
-  <div class="price">17 900 ₽</div>
-  <button class="add-btn" onclick="event.stopPropagation(); addToCart('Луноходы Moon Boot × Barbie Glimmer (Серебристый глиттер)', 17900, 'item14.PNG');">Запросить расчет 📋</button>
-</div>
-
-<!-- item15.PNG -->
-<div class="card" data-category="clothes" onclick="openModal('item15.PNG', 'Спортивное теннисное платье Barbie Tennis Dress (Лавандовое)', 3900, 'Элегантное спортивное платье-клёш с воротником-стойкой на молнии и двухслойной юбкой с сетчатым подолом из дышащей ткани.\n\nПараметры:\n• Материал: Бифлекс (полиэстер / спандекс), сетка\n• Детали: Застежка-молния спереди, аккуратная вышивка Barbie на груди\n• Крой: Приталенный, расклешенный книзу\n• Цвет: Лавандовый / Сиреневый')">
-  <span class="zoom-hint">🔍 Подробнее</span>
-  <div class="img-container">
-    <img src="item15.PNG" class="product-img" alt="Спортивное теннисное платье Barbie Tennis Dress">
-  </div>
-  <div class="product-title">Спортивное теннисное платье Barbie Tennis Dress (Лавандовое)</div>
-  <div class="price-note">Ориентировочная стоимость</div>
-  <div class="price">3 900 ₽</div>
-  <button class="add-btn" onclick="event.stopPropagation(); addToCart('Спортивное теннисное платье Barbie Tennis Dress (Лавандовое)', 3900, 'item15.PNG');">Запросить расчет 📋</button>
-</div>
-
-<!-- item16.PNG -->
-<div class="card" data-category="shoes" onclick="openModal('item16.PNG', 'Черные атласные туфли-слингбэки Barbie с каблуком-цветком', 11800, 'Изящные вечерние туфли с острым носом, тонкими ремешками вокруг щиколотки и акцентным фигурным каблуком в форме бутона цветка.\n\nПараметры:\n• Материал верха: Плотный шелковистый атлас\n• Стелька: Натуральная кожа\n• Высота каблука: 8.5 см\n• Цвет: Черный')">
-  <span class="zoom-hint">🔍 Подробнее</span>
-  <div class="img-container">
-    <img src="item16.PNG" class="product-img" alt="Черные атласные туфли-слингбэки Barbie">
-  </div>
-  <div class="product-title">Черные атласные туфли-слингбэки Barbie с каблуком-цветком</div>
-  <div class="price-note">Ориентировочная стоимость</div>
-  <div class="price">11 800 ₽</div>
-  <button class="add-btn" onclick="event.stopPropagation(); addToCart('Черные атласные туфли-слингбэки Barbie с каблуком-цветком', 11800, 'item16.PNG');">Запросить расчет 📋</button>
-</div>
-
-<!-- item17.PNG -->
-<div class="card" data-category="accessories" onclick="openModal('item17.PNG', 'Бейсболка Barbie Two-Tone (Бежево-розовая)', 1900, 'Двухцветная кепка в стиле casual из натурального хлопка. Светло-бежевая тулья сочетается с нежно-розовым изогнутым козырьком.\n\nПараметры:\n• Материал: 100% Хлопок\n• Размер: Регулируемый (металлическая пряжка сзади)\n• Цвет: Бежевый / Пудрово-розовый')">
-  <span class="zoom-hint">🔍 Подробнее</span>
-  <div class="img-container">
-    <img src="item17.PNG" class="product-img" alt="Бейсболка Barbie Two-Tone Бежево-розовая">
-  </div>
-  <div class="product-title">Бейсболка Barbie Two-Tone (Бежево-розовая)</div>
-  <div class="price-note">Ориентировочная стоимость</div>
-  <div class="price">1 900 ₽</div>
-  <button class="add-btn" onclick="event.stopPropagation(); addToCart('Бейсболка Barbie Two-Tone (Бежево-розовая)', 1900, 'item17.PNG');">Запросить расчет 📋</button>
-</div>
-
-<!-- item18.PNG -->
-<div class="card" data-category="accessories" onclick="openModal('item18.PNG', 'Бейсболка Barbie Two-Tone (Голубо-бежевая)', 1900, 'Стильная хлопковая бейсболка в мягких пастельных тонах. Голубой купол гармонично дополнен бежевым козырьком.\n\nПараметры:\n• Материал: 100% Хлопок\n• Размер: Регулируемый\n• Цвет: Нежно-голубой / Бежевый')">
-  <span class="zoom-hint">🔍 Подробнее</span>
-  <div class="img-container">
-    <img src="item18.PNG" class="product-img" alt="Бейсболка Barbie Two-Tone Голубо-бежевая">
-  </div>
-  <div class="product-title">Бейсболка Barbie Two-Tone (Голубо-бежевая)</div>
-  <div class="price-note">Ориентировочная стоимость</div>
-  <div class="price">1 900 ₽</div>
-  <button class="add-btn" onclick="event.stopPropagation(); addToCart('Бейсболка Barbie Two-Tone (Голубо-бежевая)', 1900, 'item18.PNG');">Запросить расчет 📋</button>
-</div>
-
-    </div>
-  </section>
-
- <!-- МОДАЛЬНОЕ ОКНО ПРОСМОТРА -->
-  <div class="modal" id="productModal" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <div class="modal-img-box">
-        <img src="" id="modalImg" class="modal-img" alt="Детали товара">
-      </div>
-      <div class="modal-info">
-        <h2 class="modal-title" id="modalTitle">Название модели</h2>
-        <div class="price-note">Предварительный расчет</div>
-        <div class="modal-price" id="modalPrice">0 ₽</div>
-        <p class="modal-desc" id="modalDesc">Описание позиции появится здесь.</p>
-        
-        <button class="add-btn" id="modalAddBtn">
-          Добавить в подборку 📋
-        </button>
-
-        <label class="privacy-check">
-          <input type="checkbox" id="modalPrivacyAgree" aria-describedby="modalConsentError">
-          <span>Даю отдельное <a href="consent.html" target="_blank" rel="noopener noreferrer">согласие на обработку персональных данных</a> для обращения через Telegram. С <a href="privacy.html" target="_blank" rel="noopener noreferrer">Политикой</a> ознакомлен(а).</span>
+    <section class="shell" id="catalog" aria-labelledby="catalogTitle">
+      <p class="eyebrow" id="catalogTitle">Каталог</p>
+      <div class="catalog-toolbar">
+        <label class="search-wrap">
+          <span hidden>Поиск по каталогу</span>
+          <input id="searchInput" type="search" placeholder="Найти модель или цвет" autocomplete="off">
         </label>
-        <div class="consent-error" id="modalConsentError" role="status" aria-live="polite">Поставьте галочку согласия перед переходом в Telegram.</div>
-
-        <button class="modal-action-btn" onclick="sendSingleProductToTg()">
-          💬 Написать менеджеру
-        </button>
-
-        <div class="tg-fallback">
-          <span class="tg-fallback-title">
-            Не открывается Telegram?
-          </span>
-
-          <button
-            class="copy-username-btn"
-            onclick="copyTgUsername('@kamillameneger', event)">
-            Скопировать @kamillameneger 📋
-          </button>
-        </div>
+        <div class="result-count" id="resultCount" aria-live="polite">39 товаров</div>
       </div>
-    </div>
-  </div>
+      <div class="filters" id="filters" aria-label="Фильтр по коллекции"></div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
 
-  <!-- ОВЕРЛЕЙ И БОКОВАЯ КОРЗИНА -->
-  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <section class="shell service-strip" aria-label="Как оформить заказ">
+      <div class="service-item"><strong>1. Соберите подборку</strong><span>Добавьте понравившиеся модели — можно выбрать сразу несколько оттенков.</span></div>
+      <div class="service-item"><strong>2. Отправьте менеджеру</strong><span>Сайт подготовит сообщение со списком, ценами и итоговой суммой.</span></div>
+      <div class="service-item"><strong>3. Уточните наличие</strong><span>Менеджер подтвердит доступность и поможет оформить заказ в Telegram.</span></div>
+    </section>
+  </main>
 
-  <div class="cart-drawer" id="cartDrawer">
-    <div class="cart-header">
-      <div class="cart-title">Ваша подборка 📋</div>
-      <span class="close-btn" style="position:static;" onclick="toggleCart()">&times;</span>
-    </div>
-
-    <div class="cart-items" id="cartItems">
-      <!-- Динамические товары -->
-    </div>
-
-    <div class="cart-footer">
-      <!-- БЛОК ВВОДА ПРОМОКОДА -->
-      <div style="margin-bottom: 15px;">
-        <div style="display: flex; gap: 8px;">
-          <input 
-            type="text" 
-            id="promoInput" 
-            placeholder="Промокод" 
-            style="
-              flex: 1;
-              padding: 10px 14px;
-              background: rgba(255,255,255,0.05);
-              border: 1px solid rgba(255, 20, 147, 0.4);
-              border-radius: 12px;
-              color: #fff;
-              font-size: 13px;
-              outline: none;
-              text-transform: uppercase;
-            "
-          >
-          <button 
-            type="button" 
-            onclick="applyPromoCode()"
-            style="
-              padding: 10px 16px;
-              background: linear-gradient(135deg, #ff1493, #ff69b4);
-              border: none;
-              border-radius: 12px;
-              color: #fff;
-              font-weight: 800;
-              cursor: pointer;
-              font-size: 12px;
-            "
-          >Применить</button>
-        </div>
-        <div id="promoMsg" style="font-size: 11px; margin-top: 6px; display: none;"></div>
-      </div>
-
-      <div class="total-price">
-        <span>Предварительно:</span>
-        <span id="cartTotal">0 ₽</span>
-      </div>
-
-      <label class="privacy-check">
-        <input type="checkbox" id="privacyAgree" aria-describedby="cartConsentError">
-        <span>Даю отдельное <a href="consent.html" target="_blank" rel="noopener noreferrer">согласие на обработку персональных данных</a> для обращения через Telegram. С <a href="privacy.html" target="_blank" rel="noopener noreferrer">Политикой</a> ознакомлен(а).</span>
-      </label>
-      <div class="consent-error" id="cartConsentError" role="status" aria-live="polite">Поставьте галочку согласия перед переходом в Telegram.</div>
-
-      <button class="checkout-btn" onclick="sendToTelegram()">Отправить менеджеру ✈️</button>
-    </div>
-  </div>
-
-  <script>
-    let cart = [];
-    let appliedPromo = null;
-    let promoDiscountTotal = 0;
-    let currentProduct = null;
-
-    // Скопировать юзернейм с обратной связью
-    function copyTgUsername(username, event) {
-      navigator.clipboard.writeText(username).then(() => {
-        const btn = event.currentTarget;
-        const old = btn.innerText;
-
-        btn.innerText = "Скопировано! ✨";
-        btn.style.background = "#00c853";
-
-        setTimeout(() => {
-          btn.innerText = old;
-          btn.style.background = "";
-        }, 1800);
-      });
-    }
-
-    function requireConsent(checkboxId, errorId) {
-      const checkbox = document.getElementById(checkboxId);
-      const error = document.getElementById(errorId);
-
-      if (!checkbox || !checkbox.checked) {
-        if (error) error.classList.add('visible');
-        if (checkbox) checkbox.focus();
-        return false;
-      }
-
-      if (error) error.classList.remove('visible');
-      return true;
-    }
-
-    // Отправить конкретный товар менеджеру
-    function sendSingleProductToTg() {
-      if (!currentProduct) return;
-      if (!requireConsent('modalPrivacyAgree', 'modalConsentError')) return;
-
-      const text = `Здравствуйте!
-
-Меня заинтересовала позиция:
-
-📦 ${currentProduct.title}
-
-💰 Ориентировочная стоимость: ${currentProduct.price.toLocaleString()} ₽
-
-Подскажите, пожалуйста:
-• наличие;
-• итоговую стоимость;
-• сроки доставки.
-
-Согласие на обработку персональных данных предоставлено.
-Редакция согласия: 02.09.2026.`;
-
-      window.open(
-        "https://t.me/kamillameneger?text=" + encodeURIComponent(text),
-        "_blank",
-        "noopener,noreferrer"
-      );
-    }
-
-    function triggerSparkles(event) {
-      const originX = event && Number.isFinite(event.clientX) ? event.clientX : window.innerWidth / 2;
-      const originY = event && Number.isFinite(event.clientY) ? event.clientY : window.innerHeight / 2;
-      const colors = ['#ff1493', '#ff69b4', '#ffd166', '#ffffff'];
-
-      for (let i = 0; i < 14; i += 1) {
-        const particle = document.createElement('span');
-        const angle = (Math.PI * 2 * i) / 14 + Math.random() * 0.35;
-        const distance = 28 + Math.random() * 58;
-
-        particle.className = 'sparkle-particle';
-        particle.textContent = i % 3 === 0 ? '✦' : '•';
-        particle.style.left = `${originX}px`;
-        particle.style.top = `${originY}px`;
-        particle.style.setProperty('--sparkle-x', `${Math.cos(angle) * distance}px`);
-        particle.style.setProperty('--sparkle-y', `${Math.sin(angle) * distance}px`);
-        particle.style.setProperty('--sparkle-color', colors[i % colors.length]);
-        particle.style.setProperty('--sparkle-size', `${10 + Math.random() * 8}px`);
-        document.body.appendChild(particle);
-
-        particle.addEventListener('animationend', function () {
-          particle.remove();
-        }, { once: true });
-      }
-    }
-
-    function filterCategory(category, btnElement) {
-      document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-      btnElement.classList.add('active');
-
-      const cards = document.querySelectorAll('.grid .card');
-      cards.forEach(card => {
-        const cardCategory = card.getAttribute('data-category');
-        if (category === 'all' || cardCategory === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
-    function openModal(imgSrc, title, price, desc) {
-      currentProduct = {
-        title,
-        price,
-        img: imgSrc
-      };
-
-      document.getElementById('modalImg').src = imgSrc;
-      document.getElementById('modalTitle').innerText = title;
-      document.getElementById('modalPrice').innerText = price.toLocaleString() + ' ₽';
-      document.getElementById('modalDesc').innerText = desc;
-      const modalConsentError = document.getElementById('modalConsentError');
-      if (modalConsentError) modalConsentError.classList.remove('visible');
-      
-      document.getElementById('modalAddBtn').onclick = function(e) {
-        addToCart(title, price, imgSrc, e);
-        closeModal();
-      };
-
-      document.getElementById('productModal').classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('productModal').classList.remove('active');
-    }
-
-    function toggleCart() {
-      document.getElementById('cartDrawer').classList.toggle('open');
-      document.getElementById('cartOverlay').classList.toggle('active');
-    }
-
-    function addToCart(title, price, img, event) {
-      if (event) triggerSparkles(event);
-
-      const existingItem = cart.find(item => item.title === title);
-
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        cart.push({ title, price, img, quantity: 1 });
-      }
-
-      updateCartDisplay();
-      toggleCart();
-    }
-
-    function changeQty(index, delta) {
-      cart[index].quantity += delta;
-      if (cart[index].quantity <= 0) {
-        cart.splice(index, 1);
-      }
-      updateCartDisplay();
-    }
-
-    function applyPromoCode() {
-      const input = document.getElementById('promoInput');
-      const msg = document.getElementById('promoMsg');
-      if (!input || !msg) return;
-
-      const code = input.value.trim().toUpperCase();
-      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-      if (totalCount === 0) {
-        msg.style.display = 'block';
-        msg.style.color = '#ff4d4d';
-        msg.innerText = 'Сначала добавьте товары в подборку!';
-        return;
-      }
-
-      if (code === 'БЛЕСК') {
-        appliedPromo = 'БЛЕСК';
-        msg.style.display = 'block';
-        msg.style.color = '#00ff88';
-        msg.innerText = `✨ Промокод БЛЕСК применен! (-300 ₽ на каждый товар)`;
-      } else if (code === '') {
-        appliedPromo = null;
-        msg.style.display = 'none';
-      } else {
-        appliedPromo = null;
-        msg.style.display = 'block';
-        msg.style.color = '#ff4d4d';
-        msg.innerText = 'Неверный промокод';
-      }
-
-      updateCartDisplay();
-    }
-
-    function updateCartDisplay() {
-      const cartItemsContainer = document.getElementById('cartItems');
-      const cartCount = document.getElementById('cartCount');
-      const cartTotal = document.getElementById('cartTotal');
-
-      // 1. Считаем общее количество
-      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-      if (cartCount) cartCount.innerText = totalCount;
-
-      // 2. Отрисовываем товары в подборке
-      cartItemsContainer.innerHTML = '';
-      if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<div style="text-align:center; color:#888; margin-top:20px; font-size:13px;">Подборка пока пуста ✨</div>';
-        appliedPromo = null;
-        promoDiscountTotal = 0;
-        const msg = document.getElementById('promoMsg');
-        if (msg) msg.style.display = 'none';
-      } else {
-        cart.forEach((item, index) => {
-          const itemEl = document.createElement('div');
-          itemEl.className = 'cart-item';
-          itemEl.innerHTML = `
-            <img src="${item.img}" class="cart-item-img" alt="${item.title}">
-            <div class="cart-item-info">
-              <div class="cart-item-title">${item.title}</div>
-              <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} ₽</div>
-            </div>
-            <div style="display:flex; align-items:center; gap:6px;">
-              <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
-              <span style="font-size:12px; font-weight:800;">${item.quantity}</span>
-              <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
-            </div>
-          `;
-          cartItemsContainer.appendChild(itemEl);
-        });
-      }
-
-      // 3. Расчет стоимости и скидки
-      const rawTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-      if (appliedPromo === 'БЛЕСК') {
-        promoDiscountTotal = totalCount * 300;
-      } else {
-        promoDiscountTotal = 0;
-      }
-
-      const finalTotal = Math.max(0, rawTotal - promoDiscountTotal);
-
-      if (promoDiscountTotal > 0) {
-        cartTotal.innerHTML = `<s style="opacity: 0.5; font-size: 0.8em; margin-right: 6px;">${rawTotal.toLocaleString()} ₽</s> ${finalTotal.toLocaleString()} ₽`;
-      } else {
-        cartTotal.innerText = `${finalTotal.toLocaleString()} ₽`;
-      }
-    }
-
-    function sendToTelegram() {
-      if (!requireConsent('privacyAgree', 'cartConsentError')) return;
-
-      if (cart.length === 0) {
-        alert('Пожалуйста, добавьте хотя бы одну позицию в подборку!');
-        return;
-      }
-
-      const rawTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      const finalTotal = Math.max(0, rawTotal - promoDiscountTotal);
-
-      let message = "Здравствуйте! Хочу уточнить детали и оформить заявку на подбор позиции из каталога glamme.shop:\n\n📋 Подборка позиций:\n";
-
-      cart.forEach((item, index) => {
-        const sum = item.price * item.quantity;
-        message += `${index + 1}. ${item.title} (${item.quantity} шт.) — около ${sum.toLocaleString()} ₽\n`;
-      });
-
-      if (appliedPromo) {
-        message += `\n🎟 Промокод: ${appliedPromo}`;
-        message += `\n💖 Скидка: -${promoDiscountTotal.toLocaleString()} ₽ (300 ₽ × ${cart.reduce((s, k) => s + k.quantity, 0)} шт.)`;
-      }
-
-      message += `\n\n💰 Предварительный расчет: ${finalTotal.toLocaleString()} ₽\n\nПодскажите, пожалуйста, по следующим этапам:\n1. Уточнение наличия;\n2. Согласование итоговой цены;\n3. Способы оплаты;\n4. Детали доставки. ✨`;
-      message += `\n\nСогласие на обработку персональных данных предоставлено.\nРедакция согласия: 02.09.2026.`;
-
-      const telegramUrl = `https://t.me/kamillameneger?text=${encodeURIComponent(message)}`;
-      window.open(telegramUrl, '_blank', 'noopener,noreferrer');
-    }
-  </script>
-
-  <!-- ПОДВАЛ САЙТА С ЮРИДИЧЕСКИМ ДИСКЛЕЙМЕРОМ -->
   <footer>
-    <div class="footer-content">
-      <div class="footer-brand">
-        <div class="footer-logo">glamme<span>.shop</span> ✨</div>
-        <p class="footer-tagline">Сервис персонального подбора и заказа брендовых аксессуаров 💖</p>
+    <div class="shell footer-inner">
+      <div>
+        <a class="brand" href="#top">GLAM<span class="brand-dot">.</span>ME <small>shop</small></a>
+        <p class="footer-copy">Сервис подбора и заказа аксессуаров. Наличие моделей и сроки доставки подтверждаются менеджером при оформлении.</p>
       </div>
-      
-      <!-- ДИСКЛЕЙМЕР ОТСУТСТВИЯ ПУБЛИЧНОЙ ОФЕРТЫ -->
-      <div class="legal-disclaimer">
-        Информация о товарах, характеристиках, ориентировочной стоимости и наличии, представленная на сайте, носит исключительно ознакомительный характер и не является публичной офертой. Для подтверждения наличия, точного расчета стоимости и оформления заказа, пожалуйста, свяжитесь с персональным менеджером.
-      </div>
-
-      <div class="footer-links">
-        <a href="https://t.me/kamillameneger" target="_blank" rel="noopener noreferrer" class="footer-link">✈️ Связаться с менеджером</a>
-        <a href="privacy.html" target="_blank" rel="noopener noreferrer" class="footer-link">🔒 Политика обработки данных</a>
-        <a href="consent.html" target="_blank" rel="noopener noreferrer" class="footer-link">✓ Согласие на обработку ПДн</a>
-        <a href="cookies.html" target="_blank" rel="noopener noreferrer" class="footer-link">🍪 Cookies</a>
-        <span class="footer-link">🚚 Доставка по РФ и СНГ</span>
-        <span class="footer-link">💳 Персональный расчет</span>
-      </div>
-
-      <!-- РЕКВИЗИТЫ И АВТОРСКИЕ ПРАВА -->
-      <div class="footer-copy">
-        <span>© 2026 DIGRIX. Все права защищены.</span>
-        <span class="footer-operator">Самозанятый Закиров Ильгам Радикович</span>
-      </div>
+      <nav class="footer-links" aria-label="Правовая информация">
+        <a href="/privacy.html">Политика конфиденциальности</a>
+        <a href="/consent.html">Согласие на обработку данных</a>
+        <a href="/cookies.html">Файлы cookie</a>
+      </nav>
     </div>
   </footer>
 
-  <aside class="cookie-note" id="cookieNotice" aria-label="Информация о локальном хранилище" hidden>
-    <div class="cookie-note__text">
-      <strong>Всё спокойно ✨</strong>
-      Мы не используем аналитику и рекламные cookies. Сохраняем только отметку, чтобы не показывать это сообщение снова. <a href="cookies.html" target="_blank" rel="noopener noreferrer">Подробнее</a>
+  <div class="drawer-backdrop" id="cartBackdrop" aria-hidden="true">
+    <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="drawer-head">
+        <h2 id="cartTitle">Ваша подборка</h2>
+        <button class="close-button" id="cartClose" type="button" aria-label="Закрыть">×</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="drawer-foot">
+        <div class="promo-row">
+          <input id="promoInput" type="text" placeholder="Промокод" aria-label="Промокод">
+          <button class="secondary" type="button" id="promoApply">Применить</button>
+        </div>
+        <div class="promo-message" id="promoMessage" aria-live="polite"></div>
+        <div class="total-line"><span>Итого</span><strong id="cartTotal">0 ₽</strong></div>
+        <button class="primary checkout-button" type="button" id="checkoutButton">Отправить менеджеру</button>
+        <p class="small-note">Перед переходом в Telegram потребуется подтвердить согласие на обработку данных.</p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="modal-backdrop" id="productBackdrop" aria-hidden="true">
+    <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="close-button modal-close" id="modalClose" type="button" aria-label="Закрыть">×</button>
+      <div class="modal-grid">
+        <div class="modal-image-wrap"><img id="modalImage" src="" alt=""></div>
+        <div class="modal-content">
+          <p class="eyebrow" id="modalCollection"></p>
+          <h2 id="modalTitle"></h2>
+          <p class="modal-price" id="modalPrice"></p>
+          <p class="modal-description">Стоимость указана с учётом доставки до РФ. Финальное наличие и срок доставки уточнит менеджер при оформлении.</p>
+          <div class="modal-facts" id="modalFacts"></div>
+          <button class="primary" type="button" id="modalAdd">Добавить в подборку</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <aside class="cookie-notice" id="cookieNotice" hidden aria-label="Уведомление о cookie">
+    <p><strong>На сайте используются необходимые технологии хранения.</strong> Они помогают запомнить подтверждение уведомления. Аналитические и рекламные cookie не используются.</p>
+    <div class="cookie-actions">
+      <a href="/cookies.html">Подробнее</a>
+      <button class="primary" type="button" id="cookieNoticeAccept">Понятно</button>
     </div>
-    <button class="cookie-note__button" id="cookieNoticeAccept" type="button">Понятно</button>
   </aside>
 
+  <script>
+    const products = [
+      {id:'vip-pink', collection:'VIP', name:'Barbie VIP Pink', color:'Розовый', price:5300, size:'26 × 20 × 13 см', image:'catalog/vip-pink.jpg'},
+      {id:'vip-blue', collection:'VIP', name:'Barbie VIP Blue', color:'Голубой', price:5300, size:'26 × 20 × 13 см', image:'catalog/vip-blue.jpg'},
+      {id:'vip-black', collection:'VIP', name:'Barbie VIP Black', color:'Чёрный', price:5300, size:'26 × 20 × 13 см', image:'catalog/vip-black.jpg'},
+      {id:'belt-pink', collection:'Belt', name:'Barbie Belt Pink', color:'Розовый', price:5700, size:'35 × 22 × 12 см', image:'catalog/belt-pink.jpg'},
+      {id:'belt-white', collection:'Belt', name:'Barbie Belt White', color:'Белый', price:5700, size:'35 × 22 × 12 см', image:'catalog/belt-white.jpg'},
+      {id:'jeans-beige', collection:'Jeans', name:'Barbie Jeans Beige', color:'Бежевый', price:4900, size:'19 × 13 × 10 см', image:'catalog/jeans-beige.jpg'},
+      {id:'jeans-classic', collection:'Jeans', name:'Barbie Jeans Classic', color:'Классический деним', price:4900, size:'19 × 13 × 10 см', image:'catalog/jeans-classic.jpg'},
+      {id:'velvet-middle', collection:'Velvet', name:'Barbie Velvet Middle', color:'Розовый', price:5100, size:'31 × 20 × 9 см', image:'catalog/velvet-middle.jpg'},
+      {id:'velvet-small', collection:'Velvet', name:'Barbie Velvet Small', color:'Розовый', price:4800, size:'20 × 14 × 10 см', image:'catalog/velvet-small.jpg'},
+      {id:'bant-pink', collection:'Bant', name:'Barbie Bant Pink', color:'Розовый', price:5100, size:'24 × 14 × 9 см', image:'catalog/bant-pink.jpg'},
+      {id:'bant-white', collection:'Bant', name:'Barbie Bant White', color:'Белый', price:5100, size:'24 × 14 × 9 см', image:'catalog/bant-white.jpg'},
+      {id:'secret-white', collection:'Secret', name:'Barbie Secret White', color:'Белый', price:5100, size:'25 × 14 × 12 см', image:'catalog/secret-white.jpg'},
+      {id:'secret-pink', collection:'Secret', name:'Barbie Secret Pink', color:'Розовый', price:5100, size:'25 × 14 × 12 см', image:'catalog/secret-pink.jpg'},
+      {id:'milky-pink', collection:'Milky', name:'Barbie Milky Pink', color:'Розовый', price:5100, size:'26 × 15,5 × 6 см', image:'catalog/milky-pink.jpg'},
+      {id:'milky-blue', collection:'Milky', name:'Barbie Milky Blue', color:'Голубой', price:5100, size:'26 × 15,5 × 6 см', image:'catalog/milky-blue.jpg'},
+      {id:'milky-white', collection:'Milky', name:'Barbie Milky White', color:'Белый', price:5100, size:'26 × 15,5 × 6 см', image:'catalog/milky-white.jpg'},
+      {id:'milky-black', collection:'Milky', name:'Barbie Milky Black', color:'Чёрный', price:5100, size:'26 × 15,5 × 6 см', image:'catalog/milky-black.jpg'},
+      {id:'cute-pink', collection:'Cute', name:'Barbie Cute Pink', color:'Розовый', price:4700, size:'26 × 15,5 × 6 см', image:'catalog/cute-pink.jpg'},
+      {id:'cute-burgundy', collection:'Cute', name:'Barbie Cute Burgundy', color:'Бордовый', price:4700, size:'26 × 15,5 × 6 см', image:'catalog/cute-burgundy.jpg'},
+      {id:'cute-yellow', collection:'Cute', name:'Barbie Cute Yellow', color:'Жёлтый', price:4700, size:'26 × 15,5 × 6 см', image:'catalog/cute-yellow.jpg'},
+      {id:'cute-black', collection:'Cute', name:'Barbie Cute Black', color:'Чёрный', price:4700, size:'26 × 15,5 × 6 см', image:'catalog/cute-black.jpg'},
+      {id:'malibu-blue', collection:'Malibu', name:'Barbie Malibu Blue', color:'Голубой', price:5100, size:'23 × 13 × 11 см', image:'catalog/malibu-blue.jpg'},
+      {id:'malibu-pink', collection:'Malibu', name:'Barbie Malibu Pink', color:'Розовый', price:5100, size:'23 × 13 × 11 см', image:'catalog/malibu-pink.jpg'},
+      {id:'malibu-white', collection:'Malibu', name:'Barbie Malibu White', color:'Белый', price:5100, size:'23 × 13 × 11 см', image:'catalog/malibu-white.jpg'},
+      {id:'pinkadot-red', collection:'Pinkadot', name:'Barbie Pinkadot Red', color:'Красный', price:4700, size:'29 × 16 × 8 см', image:'catalog/pinkadot-red.jpg'},
+      {id:'pinkadot-white', collection:'Pinkadot', name:'Barbie Pinkadot White', color:'Белый', price:4700, size:'29 × 16 × 8 см', image:'catalog/pinkadot-white.jpg'},
+      {id:'pinkadot-pink', collection:'Pinkadot', name:'Barbie Pinkadot Pink', color:'Розовый', price:4700, size:'29 × 16 × 8 см', image:'catalog/pinkadot-pink.jpg'},
+      {id:'texture-pink', collection:'Texture', name:'Barbie Texture Pink', color:'Розовый', price:5200, size:'', image:'catalog/texture-pink.jpg'},
+      {id:'texture-white', collection:'Texture', name:'Barbie Texture White', color:'Белый', price:5200, size:'', image:'catalog/texture-white.jpg'},
+      {id:'texture-brown', collection:'Texture', name:'Barbie Texture Brown', color:'Коричневый', price:5200, size:'', image:'catalog/texture-brown.jpg'},
+      {id:'miniflo-pink', collection:'Miniflo', name:'Barbie Miniflo Pink', color:'Розовый', price:4900, size:'18 × 12 × 10 см', image:'catalog/miniflo-pink.jpg'},
+      {id:'miniflo-burgundy', collection:'Miniflo', name:'Barbie Miniflo Burgundy', color:'Бордовый', price:4900, size:'18 × 12 × 10 см', image:'catalog/miniflo-burgundy.jpg'},
+      {id:'miniflo-white', collection:'Miniflo', name:'Barbie Miniflo White', color:'Белый', price:4900, size:'18 × 12 × 10 см', image:'catalog/miniflo-white.jpg'},
+      {id:'blonde', collection:'Special', name:'Barbie Blonde', color:'Деним', price:4900, size:'30 × 25 × 10 см', image:'catalog/blonde.jpg'},
+      {id:'horse-bag', collection:'Special', name:'Barbie Horse Bag', color:'Розовый', price:4900, size:'', image:'catalog/horse-bag.jpg'},
+      {id:'big-black', collection:'Special', name:'Barbie Big Black', color:'Чёрный', price:4900, size:'', image:'catalog/big-black.jpg'},
+      {id:'tote-pink', collection:'Tote', name:'Barbie Tote Pink', color:'Розовый', price:4900, size:'53 × 32 см', image:'catalog/tote-pink.jpg'},
+      {id:'tote-blue', collection:'Tote', name:'Barbie Tote Blue', color:'Голубой', price:4900, size:'53 × 32 см', image:'catalog/tote-blue.jpg'},
+      {id:'tote-white', collection:'Tote', name:'Barbie Tote White', color:'Белый', price:4900, size:'53 × 32 см', image:'catalog/tote-white.jpg'}
+    ];
+
+    const collectionOrder = ['Все', 'VIP', 'Belt', 'Jeans', 'Velvet', 'Bant', 'Secret', 'Milky', 'Cute', 'Malibu', 'Pinkadot', 'Texture', 'Miniflo', 'Special', 'Tote'];
+    const state = { collection: 'Все', query: '', cart: [], promo: false, activeProduct: null };
+    const money = value => new Intl.NumberFormat('ru-RU').format(value) + ' ₽';
+    const productGrid = document.getElementById('productGrid');
+    const filters = document.getElementById('filters');
+    const resultCount = document.getElementById('resultCount');
+
+    function productMeta(product) {
+      return [product.color, product.size].filter(Boolean).map(value => `<span>${value}</span>`).join('');
+    }
+
+    function renderFilters() {
+      filters.innerHTML = collectionOrder.map(collection => `
+        <button type="button" class="filter ${state.collection === collection ? 'active' : ''}" data-collection="${collection}">${collection}</button>
+      `).join('');
+    }
+
+    function filteredProducts() {
+      const query = state.query.trim().toLocaleLowerCase('ru');
+      return products.filter(product => {
+        const collectionMatch = state.collection === 'Все' || product.collection === state.collection;
+        const queryMatch = !query || `${product.name} ${product.color} ${product.collection}`.toLocaleLowerCase('ru').includes(query);
+        return collectionMatch && queryMatch;
+      });
+    }
+
+    function renderProducts() {
+      const visible = filteredProducts();
+      resultCount.textContent = `${visible.length} ${visible.length === 1 ? 'товар' : visible.length > 1 && visible.length < 5 ? 'товара' : 'товаров'}`;
+      if (!visible.length) {
+        productGrid.innerHTML = '<div class="empty-state"><strong>Ничего не найдено</strong>Попробуйте другой запрос или выберите все коллекции.</div>';
+        return;
+      }
+      productGrid.innerHTML = visible.map(product => `
+        <article class="product-card">
+          <button class="product-media" type="button" data-details="${product.id}" aria-label="Подробнее о ${product.name}" style="border:0;padding:0;width:100%;">
+            <img src="${product.image}" alt="${product.name}" loading="lazy" width="900" height="900">
+            <span class="collection-badge">${product.collection}</span>
+          </button>
+          <div class="product-body">
+            <div class="product-top">
+              <h2 class="product-title">${product.name}</h2>
+              <span class="product-price">${money(product.price)}</span>
+            </div>
+            <p class="product-meta">${productMeta(product)}</p>
+            <div class="card-actions">
+              <button class="primary" type="button" data-add="${product.id}">В подборку</button>
+              <button class="icon-button" type="button" data-details="${product.id}" aria-label="Подробнее о ${product.name}">＋</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderCatalog() { renderFilters(); renderProducts(); }
+
+    filters.addEventListener('click', event => {
+      const button = event.target.closest('[data-collection]');
+      if (!button) return;
+      state.collection = button.dataset.collection;
+      renderCatalog();
+    });
+    document.getElementById('searchInput').addEventListener('input', event => {
+      state.query = event.target.value;
+      renderProducts();
+    });
+
+    const productBackdrop = document.getElementById('productBackdrop');
+    function openProduct(productId) {
+      const product = products.find(item => item.id === productId);
+      if (!product) return;
+      state.activeProduct = product;
+      document.getElementById('modalImage').src = product.image;
+      document.getElementById('modalImage').alt = product.name;
+      document.getElementById('modalCollection').textContent = product.collection;
+      document.getElementById('modalTitle').textContent = product.name;
+      document.getElementById('modalPrice').textContent = money(product.price);
+      document.getElementById('modalFacts').innerHTML = `<span><strong>Цвет:</strong> ${product.color}</span>${product.size ? `<span><strong>Размер:</strong> ${product.size}</span>` : ''}`;
+      productBackdrop.classList.add('open');
+      productBackdrop.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeProduct() {
+      productBackdrop.classList.remove('open');
+      productBackdrop.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    productGrid.addEventListener('click', event => {
+      const detailButton = event.target.closest('[data-details]');
+      const addButton = event.target.closest('[data-add]');
+      if (detailButton) openProduct(detailButton.dataset.details);
+      if (addButton) addToCart(addButton.dataset.add);
+    });
+    document.getElementById('modalClose').addEventListener('click', closeProduct);
+    productBackdrop.addEventListener('click', event => { if (event.target === productBackdrop) closeProduct(); });
+    document.getElementById('modalAdd').addEventListener('click', () => {
+      if (state.activeProduct) addToCart(state.activeProduct.id);
+      closeProduct();
+      openCart();
+    });
+
+    const cartBackdrop = document.getElementById('cartBackdrop');
+    function addToCart(productId) {
+      if (!state.cart.includes(productId)) state.cart.push(productId);
+      renderCart();
+      const button = document.querySelector(`[data-add="${productId}"]`);
+      if (button) {
+        const original = button.textContent;
+        button.textContent = 'Добавлено ✓';
+        setTimeout(() => { button.textContent = original; }, 1100);
+      }
+    }
+    function removeFromCart(productId) {
+      state.cart = state.cart.filter(id => id !== productId);
+      if (!state.cart.length) state.promo = false;
+      renderCart();
+    }
+    function cartProducts() { return state.cart.map(id => products.find(product => product.id === id)).filter(Boolean); }
+    function renderCart() {
+      const items = cartProducts();
+      document.getElementById('cartCount').textContent = items.length;
+      document.getElementById('cartItems').innerHTML = items.length ? items.map(product => `
+        <div class="cart-item">
+          <img src="${product.image}" alt="${product.name}">
+          <div><strong>${product.name}</strong><span>${money(product.price)}</span></div>
+          <button class="remove-button" type="button" data-remove="${product.id}" aria-label="Удалить ${product.name}">×</button>
+        </div>
+      `).join('') : '<div class="cart-empty">Добавьте понравившиеся модели — они появятся здесь.</div>';
+      const subtotal = items.reduce((sum, product) => sum + product.price, 0);
+      const total = state.promo ? Math.round(subtotal * .95) : subtotal;
+      document.getElementById('cartTotal').textContent = money(total);
+      document.getElementById('checkoutButton').disabled = !items.length;
+    }
+    function openCart() {
+      cartBackdrop.classList.add('open');
+      cartBackdrop.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart() {
+      cartBackdrop.classList.remove('open');
+      cartBackdrop.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('cartOpen').addEventListener('click', openCart);
+    document.getElementById('cartClose').addEventListener('click', closeCart);
+    cartBackdrop.addEventListener('click', event => { if (event.target === cartBackdrop) closeCart(); });
+    document.getElementById('cartItems').addEventListener('click', event => {
+      const button = event.target.closest('[data-remove]');
+      if (button) removeFromCart(button.dataset.remove);
+    });
+    document.getElementById('promoApply').addEventListener('click', () => {
+      const input = document.getElementById('promoInput');
+      const message = document.getElementById('promoMessage');
+      if (input.value.trim().toUpperCase() === 'БЛЕСК') {
+        state.promo = true;
+        message.textContent = 'Промокод применён — скидка 5%.';
+      } else {
+        state.promo = false;
+        message.textContent = 'Проверьте промокод.';
+      }
+      renderCart();
+    });
+    document.getElementById('checkoutButton').addEventListener('click', () => {
+      const items = cartProducts();
+      if (!items.length) return;
+      if (!window.confirm('Для оформления заказа выбранные позиции будут переданы менеджеру в Telegram. Продолжить?')) return;
+      const subtotal = items.reduce((sum, product) => sum + product.price, 0);
+      const total = state.promo ? Math.round(subtotal * .95) : subtotal;
+      const lines = items.map((product, index) => `${index + 1}. ${product.name} — ${money(product.price)}`);
+      const promoLine = state.promo ? '\nПромокод: БЛЕСК (−5%)' : '';
+      const text = `Здравствуйте! Хочу уточнить наличие:\n\n${lines.join('\n')}${promoLine}\n\nИтого: ${money(total)}`;
+      window.open(`https://t.me/glammegirls?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') { closeProduct(); closeCart(); }
+    });
+
+    renderCatalog();
+    renderCart();
+  </script>
+  <script src="/privacy-notice.js" defer></script>
 </body>
 </html>
