@@ -575,7 +575,7 @@
     <div class="header-inner">
       <a class="brand" href="#top" aria-label="GLAM.ME SHOP — на главную">glam<span class="brand-dot">.</span>me ✨</a>
       <div class="header-actions">
-        <a class="manager-link" href="https://t.me/glammegirls" target="_blank" rel="noopener">Telegram</a>
+        <a class="manager-link" href="https://t.me/kamillameneger" target="_blank" rel="noopener">Telegram</a>
         <button class="cart-button" type="button" id="cartOpen" aria-label="Открыть подборку">
           Подборка <span class="cart-count" id="cartCount">0</span>
         </button>
@@ -892,7 +892,7 @@
       const lines = items.map((product, index) => `${index + 1}. ${product.name} — ${money(product.price)}`);
       const promoLine = state.promo ? '\nПромокод: БЛЕСК (−5%)' : '';
       const text = `Здравствуйте! Хочу уточнить наличие:\n\n${lines.join('\n')}${promoLine}\n\nИтого: ${money(total)}`;
-      window.open(`https://t.me/glammegirls?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+      window.open(`https://t.me/kamillameneger?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
     });
 
     document.addEventListener('keydown', event => {
